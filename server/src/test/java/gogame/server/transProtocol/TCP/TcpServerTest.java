@@ -25,6 +25,7 @@ public class TcpServerTest {
 	      ableToConnect.close();
 	    } catch (Exception e) {
 	      System.out.println(e.getMessage());
+	    }
 	   finally {
 	    	// close the 'serverSocket'
 		    server.stop();

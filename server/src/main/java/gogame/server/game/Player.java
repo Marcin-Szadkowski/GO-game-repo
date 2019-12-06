@@ -28,6 +28,10 @@ public class Player implements Runnable {
 	
 	public void run() {
 		//output.out("Gracz " + color);
+		while(color == null ) {
+			//Tu dodac sprawdzanie czy gracz podal rozmiar planszy
+			
+		}
 		System.out.println("Gracz" + color);
 	}
 	

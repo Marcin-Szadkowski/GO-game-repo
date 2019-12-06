@@ -10,6 +10,7 @@ import java.util.concurrent.Executors;
 import com.sun.net.ssl.internal.www.protocol.https.Handler;
 
 import gogame.server.game.Game;
+import gogame.server.game.Lobby;
 import gogame.server.transProtocol.TransferProtocol;
 import gogame.server.game.Player;
 /**
@@ -24,22 +25,21 @@ public class TcpServer implements TransferProtocol {
 	private boolean execute = true;
 	
 	public void initialize() {
-		Socket sock1, sock2;
+		Socket sock1;
 		try{
 			listener = new ServerSocket(58901);
 			System.out.println("Go game Server is running...");
 			ExecutorService pool = Executors.newFixedThreadPool(20);
+			Lobby lobby = Lobby.getInstance();
+			pool.execute(lobby);
 			
 			while (execute) {
-				Game game = new Game();
 				sock1 = listener.accept();
 				Player player1 = new Player(new TcpOutput(sock1), new TcpInput(sock1));
 				pool.execute(player1);
+				lobby.addPlayer(player1);
 				
-				sock2 = listener.accept();
-				Player player2 = new Player(new TcpOutput(sock2), new TcpInput(sock2) );
-				pool.execute(player2);
-				
+								
 			}
 		}catch(IOException e) {
 			e.printStackTrace();
@@ -74,6 +74,7 @@ public class TcpServer implements TransferProtocol {
 		this.execute = false;
 		//System.out.println("Server closing...");
 		try {
+			Lobby.getInstance().stop();
 			System.out.println("Server closing...");
 			if(listener != null)
 				listener.close();
