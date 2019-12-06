@@ -11,13 +11,14 @@ public class Player implements Runnable {
 	Output output;
 	Input input;
 	
-	public Player(Output output, Input input, String color) {
+	public Player(Output output, Input input) {
 		this.output = output;
 		this.input = input;
-		this.color = color;
 	}
-	private void set() {
-		
+	public void set(Game game, Player opponent, String color) {
+		this.game = game;
+		this.opponent = opponent;
+		this.color = color;
 	}
 	Integer getGameSize() {
 		if(gameSize != null)

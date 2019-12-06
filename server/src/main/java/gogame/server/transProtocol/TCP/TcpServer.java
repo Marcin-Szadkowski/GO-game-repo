@@ -33,11 +33,11 @@ public class TcpServer implements TransferProtocol {
 			while (execute) {
 				Game game = new Game();
 				sock1 = listener.accept();
-				Player player1 = new Player(new TcpOutput(sock1), new TcpInput(sock1), "Black" );
+				Player player1 = new Player(new TcpOutput(sock1), new TcpInput(sock1));
 				pool.execute(player1);
 				
 				sock2 = listener.accept();
-				Player player2 = new Player(new TcpOutput(sock2), new TcpInput(sock2), "White" );
+				Player player2 = new Player(new TcpOutput(sock2), new TcpInput(sock2) );
 				pool.execute(player2);
 				
 			}

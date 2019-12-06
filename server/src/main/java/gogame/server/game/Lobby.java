@@ -12,7 +12,7 @@ import gogame.server.transProtocol.TCP.TcpServer;
 public class Lobby implements Runnable {
 	private boolean execute = true;
 	private volatile static Lobby instance;
-	private LinkedList<Player> players;
+	private volatile LinkedList<Player> players;
 	
 	public static Lobby getInstance() {
 		if(instance == null) {
@@ -30,9 +30,22 @@ public class Lobby implements Runnable {
 		this.players = new LinkedList<Player>();
 		
 		while(execute) {
-			
+			for(int i=0; i < players.size(); i++) {
+				for(int j=1; j < players.size(); i++) {
+					if(players.get(i).getGameSize() == players.get(j).getGameSize()) {
+						matchPlayers(players.get(i), players.get(j));
+					}
+				}
+			}
 		}
 		
+	}
+	private void matchPlayers(Player player1, Player player2) {
+		Game game = new Game();
+		player1.set(game, player2, "Black");
+		player2.set(game, player1, "White");
+		this.deletePlayer(player1);
+		this.deletePlayer(player2);
 	}
 	/**
 	 * Metoda konczaca dzialanie lobby
@@ -47,7 +60,10 @@ public class Lobby implements Runnable {
 	 */
 	public void addPlayer(Player player) {
 		if(players != null)
-			players.add(player);
+			synchronized (players) {
+				players.add(player);
+			}
+			
 	}
 	/**
 	 * Metoda usuwajaca gracza z lobby
@@ -57,10 +73,12 @@ public class Lobby implements Runnable {
 	 */
 	public void deletePlayer(Player player) {
 		if(players != null) {
-			try {
-				players.remove(player);
-			}catch(NoSuchElementException e) {
-				e.printStackTrace();
+			synchronized (players) {
+				try {
+					players.remove(player);
+				}catch(NoSuchElementException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}
