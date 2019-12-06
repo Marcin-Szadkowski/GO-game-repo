@@ -1,9 +1,13 @@
 package gogame.server.transProtocol.TCP;
 
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import com.sun.net.ssl.internal.www.protocol.https.Handler;
 
 import gogame.server.game.Game;
 import gogame.server.transProtocol.TransferProtocol;
@@ -15,16 +19,18 @@ import gogame.server.game.Player;
  * @see TransferProtocol
  */
 public class TcpServer implements TransferProtocol {
-	
+	private ServerSocket listener;
 	private volatile static TcpServer instance;
+	private boolean execute = true;
 	
 	public void initialize() {
 		Socket sock1, sock2;
 		try{
-			ServerSocket listener = new ServerSocket(58901);
+			listener = new ServerSocket(58901);
 			System.out.println("Go game Server is running...");
 			ExecutorService pool = Executors.newFixedThreadPool(20);
-			while (true) {
+			
+			while (execute) {
 				Game game = new Game();
 				sock1 = listener.accept();
 				Player player1 = new Player(new TcpOutput(sock1), new TcpInput(sock1), "Black" );
@@ -35,7 +41,9 @@ public class TcpServer implements TransferProtocol {
 				pool.execute(player2);
 				
 			}
-		}		
+		}catch(IOException e) {
+			e.printStackTrace();
+		}					
 	}
 
 	public void sendMessage() {
@@ -51,7 +59,7 @@ public class TcpServer implements TransferProtocol {
 	 * Metoda zwracajaca instancje klasy TcpServer
 	 * lub tworzaca jej instancje jesli jeszcze nie istnieje
 	 */
-	public TransferProtocol getInstance() {
+	public static TransferProtocol getInstance() {
 		if(instance == null) {
 			synchronized (TcpServer.class) {
 				if(instance == null) {
@@ -61,8 +69,22 @@ public class TcpServer implements TransferProtocol {
 		}
 		return instance;
 	}
-	public static void main(String[] args) throws Exception {
+	public void stop(){
 		
+		this.execute = false;
+		//System.out.println("Server closing...");
+		try {
+			System.out.println("Server closing...");
+			if(listener != null)
+				listener.close();
+		}catch(IOException e) {
+			e.printStackTrace();		
+		}		
+	}
+	
+	public static void main(String[] args) throws Exception {
+		TcpServer server = (TcpServer) TcpServer.getInstance();
+		server.initialize();
 	}
 	
 

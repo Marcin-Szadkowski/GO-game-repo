@@ -19,6 +19,10 @@ public interface TransferProtocol {
 	 */
 	public void recvMessage();
 	
-	public TransferProtocol getInstance();
+	public  void stop();
+	
+	public static TransferProtocol getInstance() {
+		return null;
+	}
 	
 }

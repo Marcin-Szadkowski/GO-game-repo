@@ -5,6 +5,8 @@ import gogame.server.transProtocol.Output;
 
 public class Player implements Runnable {
 	String color;
+	Game game;
+	Integer gameSize;
 	Player opponent;
 	Output output;
 	Input input;
@@ -17,9 +19,15 @@ public class Player implements Runnable {
 	private void set() {
 		
 	}
+	Integer getGameSize() {
+		if(gameSize != null)
+			return gameSize;
+		return null;
+	}
 	
 	public void run() {
-		
+		//output.out("Gracz " + color);
 		System.out.println("Gracz" + color);
 	}
+	
 }
