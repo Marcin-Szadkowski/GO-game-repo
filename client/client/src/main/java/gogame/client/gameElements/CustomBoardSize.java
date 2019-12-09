@@ -1,6 +1,6 @@
 package gogame.client.gameElements;
 
-public class CustomBoardSize {
+public class CustomBoardSize{
 
 	 public int[] takenBoardSize(int size)
 	    {
@@ -21,5 +21,13 @@ public class CustomBoardSize {
 	    	else if (size == 19) {parametersOfPawn[0] = 25; parametersOfPawn [1] = 25;}
 	    	return parametersOfPawn;
 	    }
+		public int boardSize() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+		public int[][] boardCor() {
+			// TODO Auto-generated method stub
+			return null;
+		}
 	
 }

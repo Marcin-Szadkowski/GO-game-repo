@@ -1,90 +1,67 @@
 package gogame.client.game;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.HeadlessException;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import gogame.client.gameElements.Board9;
 import gogame.client.gameElements.BoardGui;
 import gogame.client.gameElements.CustomBoardSize;
+import gogame.client.gameElements.Pawn;
+import gogame.client.gameElements.PawnPanel;
 import gogame.client.transProtocol.TCP.TcpClient;
 
 public class Game extends JFrame{
 
 	
-	public static int xCorStone;
-	public static int yCorStone;
+	private int gameType;
+	private int size;
+	private int turn=1;
 	
-	public static int widthStep;
-	public static int heightStep;
-	public static int size=9;
+	// nwm co to headless xd
+	public Game(int gameType, int size) throws HeadlessException {
+		super();
+		this.gameType = gameType;
+		this.size = size;
+	}
 
-	
-	private static JFrame frame;
-	private static JPanel gamePanel;
-	
-	public Game() {
+
+	public void frameGame() {
 		
-	    getContentPane().addMouseListener(new GameMouseListener());
-		setSize(1000,1000);
+	  //  getContentPane().addMouseListener(new GameMouseListener());
+		setSize(900,900);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-	//	setResizable(false);
 		
-		gamePanel = new JPanel();
-		gamePanel.setSize(1000,1000);
-		gamePanel.setVisible(true);
 		
-		frame.add(gamePanel);
-		frame.setContentPane(gamePanel);
-		//gamePanel.addMouseListener(new GameMouseListener());
-		frame.setVisible(true);
+		PawnPanel panel = new PawnPanel();
+		setContentPane(panel);
+		panel.addMouseListener(new GameMouseListener(panel));
+		panel.addTypeAreas();
+		setResizable(false);
 		
+		setVisible(true);
 		
 	}
-	//cala metdoa do przeniesienia do boardgui---------------------------------------------------!!!
-	public void paint(Graphics g) {
-		CustomBoardSize boardSize = new CustomBoardSize();
-		widthStep = boardSize.takenBoardSize(size)[0];
-		heightStep = boardSize.takenBoardSize(size)[1];
+	public void Action() {
 		
 		
-		// draw the bacground board
-		//vertical lines
-		for(int i=0 ;i <= size ;i++) {
-			g.drawLine(i*widthStep,heightStep,i*widthStep,size*heightStep);
-				
-		}
 		
-		//horizontal lines
-		for(int i=0 ;i <= size ;i++) {
-			g.drawLine(widthStep,i*heightStep,size*widthStep,i*heightStep);
-				
-		}
 		
-			
-		
-	
 	}
 	
 	public static void main(String[] args) {
-	/*	Game game = new Game();
-		TcpClient client = new TcpClient("localhost");
-		try {client.initialize();}
-		catch(Exception e){
-			
-		}
-		System.out.println(client.input());
-		
-		*/
-		
-		
-		BoardGui board = new BoardGui();
-		board.boardCor();
-
-		
-		
-		Game game = new Game();
+	
+        OpeningWindow data = new OpeningWindow();
+		Game game = new Game(data.sendChosenSettings()[1],data.sendChosenSettings()[0]);
+		game.frameGame();
+		game.Action();
+	 
 		
 	}
 }

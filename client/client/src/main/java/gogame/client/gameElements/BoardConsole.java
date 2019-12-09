@@ -1,6 +1,6 @@
 package gogame.client.gameElements;
 
-public class BoardConsole implements BoardInterface{
+public class BoardConsole extends AbstractBoard{
 
 	public int boardSize() {
 		// TODO Auto-generated method stub
@@ -8,6 +8,12 @@ public class BoardConsole implements BoardInterface{
 	}
 
 	public int[][] boardCor() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected Board createBoard(String type) {
 		// TODO Auto-generated method stub
 		return null;
 	}
