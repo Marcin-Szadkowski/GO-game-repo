@@ -73,6 +73,8 @@ public class TcpClient implements TransferProtocol {
 	 */
 	@Override
 	public boolean hasNextLine() {
+		if(input == null)
+			return false;
 		if(input.hasNextLine())
 			return true;
 		return false;
@@ -84,6 +86,7 @@ public class TcpClient implements TransferProtocol {
 	 */
 	@Override
 	public void stop() {
+		sendMessage("QUIT");
 		try {
 			socket.close();
 		} catch (IOException e) {
