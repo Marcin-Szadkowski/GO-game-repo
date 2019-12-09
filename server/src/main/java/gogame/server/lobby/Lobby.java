@@ -1,51 +1,62 @@
-package gogame.server.game;
+package gogame.server.lobby;
 
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
-import gogame.server.transProtocol.TCP.TcpServer;
+import gogame.server.game.Game;
+import gogame.server.game.Player;
+
 /**
  * Klasa odpowiadajaca za laczenie graczy w spolne gry
  * @author marcin
  * Gracze sa laczeni na podstawie zgodnosci wyboru rozmiaru planszy
  */
-public class Lobby implements Runnable {
+public class Lobby implements GamesHandler {
 	private boolean execute = true;
 	private volatile static Lobby instance;
-	private volatile LinkedList<Player> players;
+	private volatile LinkedList<Player> players= new LinkedList<Player>(); 
 	
+	/**
+	 * Statyczna funkcja zwracajaca instancje klasy Lobby,
+	 *  poniewaz Lobby wykorzystuje wzorzec Singleton
+	 * @return
+	 */
 	public static Lobby getInstance() {
 		if(instance == null) {
 			synchronized (Lobby.class) {
 				if(instance == null) {
-					instance = new Lobby();
-					
+					instance = new Lobby();				
 				}
 			}
 		}
 		return instance;
 	}
-	@Override
-	public void run() {
-		this.players = new LinkedList<Player>();
-		
-		while(execute) {
-			for(int i=0; i < players.size(); i++) {
-				for(int j=1; j < players.size(); i++) {
-					if(players.get(i).getGameSize() == players.get(j).getGameSize()) {
-						matchPlayers(players.get(i), players.get(j));
-					}
-				}
+	public synchronized void  findGame() {
+		int gracze = players.size();
+		for(int i=0; i< gracze; i++) {
+			for(int j= i+1; j<gracze; j++) {
+				if(players.get(i).getGameSize() == players.get(j).getGameSize() && players.get(i).getGameSize() != null )
+					matchPlayers(players.get(i), players.get(j));
 			}
 		}
-		
 	}
-	private void matchPlayers(Player player1, Player player2) {
-		Game game = new Game();
+	
+	/**
+	 * Metoda przydzielajaca graczy do jednej gry
+	 * @param player1
+	 * @param player2
+	 */
+	public void matchPlayers(Player player1, Player player2) {
+		System.out.println("Wywolanie matchPlayers");
+		System.out.println("Rozmiar planszy: " + player1.getGameSize());
+		Game game = new Game(player1.getGameSize());
 		player1.set(game, player2, "Black");
 		player2.set(game, player1, "White");
 		this.deletePlayer(player1);
 		this.deletePlayer(player2);
+	}
+	public Integer howManyPlayers() {
+		return players.size();
 	}
 	/**
 	 * Metoda konczaca dzialanie lobby
@@ -59,12 +70,11 @@ public class Lobby implements Runnable {
 	 * @param player
 	 */
 	public void addPlayer(Player player) {
-		if(players != null)
-			synchronized (players) {
-				players.add(player);
-			}
-			
+		if(players != null)	
+			players.add(player);
+			System.out.println("Dodano gracza");								
 	}
+	
 	/**
 	 * Metoda usuwajaca gracza z lobby
 	 * @param player
@@ -83,4 +93,9 @@ public class Lobby implements Runnable {
 		}
 	}
 
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
 }

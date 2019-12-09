@@ -4,7 +4,7 @@ package gogame.server.transProtocol;
  * @author marcin
  *
  */
-public interface TransferProtocol {
+public interface TransferProtocol extends Runnable {
 	
 	/*
 	 * Initialize connection 
