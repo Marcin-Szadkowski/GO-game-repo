@@ -3,12 +3,8 @@ package gogame.server.transProtocol.TCP;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-
+import java.net.SocketException;
 import gogame.server.transProtocol.TransferProtocol;
-import gogame.server.game.Player;
 import gogame.server.lobby.*;
 /**
  * Klasa rozszerzajaca interface TransferProtocol
@@ -51,8 +47,8 @@ public class TcpServer implements TransferProtocol {
 	public void stop(){
 		
 		this.execute = false;
+		Lobby.getInstance().closeLobby();
 		try {
-			Lobby.getInstance().stop();
 			System.out.println("Server closing...");
 			if(listener != null)
 				listener.close();
@@ -67,27 +63,20 @@ public class TcpServer implements TransferProtocol {
 		try{
 			listener = new ServerSocket(58901);
 			System.out.println("Go game Server is running...");
-			ExecutorService pool = Executors.newFixedThreadPool(20);
+			//Tworzymy instancje lobby
 			GamesHandler lobby = Lobby.getInstance();
-
 			System.out.println("Uruchomiono lobby");
+			
 			while (execute) {
-				System.out.println("Obieg petli w serwerze");
-				execute = false;
 				sock1 = listener.accept();
-				Player player1 = new Player(new TcpOutput(sock1), new TcpInput(sock1));
-				pool.execute(player1);
+				PlayerInLobby player1 = new PlayerInLobby(new TcpOutput(sock1), new TcpInput(sock1));
 				lobby.addPlayer(player1);
 												
-			}
-			pool.shutdown();
-			try {
-				if(!pool.awaitTermination(800, TimeUnit.MILLISECONDS))
-					pool.shutdownNow();
-			}catch(InterruptedException e) {
-				pool.shutdownNow();
-			}
-		}catch(IOException e) {
+			}			
+		}catch(SocketException e) {
+			//Nie rob nic, wyjatek zostal wywolany, poniewaz administrator wylacza serwer
+		}
+		catch(IOException e) {
 			e.printStackTrace();
 		}							
 	}	

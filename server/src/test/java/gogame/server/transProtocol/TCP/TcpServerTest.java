@@ -4,14 +4,45 @@ import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import org.junit.Test;
 
-public class TcpServerTest {
+import gogame.client.tcp.TcpClient;
 
-	@SuppressWarnings("resource")
+
+public class TcpServerTest {
+	@Test
+	public void twoClientsTest() {
+		TcpServer server = (TcpServer) TcpServer.getInstance();
+		Thread serverThread = new Thread(server);
+		//Uruchamiam watek server
+		serverThread.start();
+		
+		TcpClient client1 = new TcpClient();
+		TcpClient client2 = new TcpClient();
+		//Podlaczam clientow
+		client1.initialize();
+		client2.initialize();
+		//Poczekaj az sie podlaczy
+		while(!client1.isConnected()) {
+			
+		}
+		assertTrue(client1.isConnected());
+		assertTrue(client1.isConnected());
+		
+		client1.sendMessage("QUIT");
+		client2.sendMessage("QUIT");
+		
+		server.stop();
+		
+		while(serverThread.isAlive()) {
+			
+		}
+		//assertFalse(client1.isConnected());
+		//assertFalse(client1.isConnected());
+		assertFalse(serverThread.isAlive());
+	}
+	/*@SuppressWarnings("resource")
 	@Test
 	public void serverAcceptsConnection() throws IOException {
 		
@@ -45,5 +76,5 @@ public class TcpServerTest {
 	      // assert that the exception is thrown and is the right exception
 	      assertEquals("Connection refused", e.getMessage().trim());
 	    }
-	  }
+	  }*/
 }

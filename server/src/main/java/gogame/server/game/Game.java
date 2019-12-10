@@ -4,11 +4,14 @@ public class Game {
 	private int size;
 	private Player currentPlayer;
 	
-	public Game(Integer size) {
+	public Game(int size) {
 		this.size = size;
 	}
 	public void setCurPlayer(Player player) {
 		currentPlayer = player;
+	}
+	public synchronized void move(int x, int y, Player player) {
+		
 	}
 	
 }

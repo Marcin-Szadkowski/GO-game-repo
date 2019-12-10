@@ -18,6 +18,7 @@ public class TcpClient implements TransferProtocol {
 	private PrintWriter output;
 	private volatile static TcpClient instance;
 	
+	//private TcpClient() {}
 	/**
 	 * Metoda zwracajaca instancje klasy TcpServer
 	 * lub tworzaca jej instancje jesli jeszcze nie istnieje
@@ -27,6 +28,7 @@ public class TcpClient implements TransferProtocol {
 			synchronized (TcpClient.class) {
 				if(instance == null) {
 					instance = new TcpClient();
+					System.out.println("Go game Server is running...");
 				}
 			}
 		}
@@ -93,5 +95,11 @@ public class TcpClient implements TransferProtocol {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	@Override
+	public boolean isConnected() {
+		if(socket.isConnected())
+			return true;
+		return false;
 	}
 }

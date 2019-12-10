@@ -20,4 +20,5 @@ public interface TransferProtocol {
 	public boolean hasNextLine();
 	
 	public void stop();
+	boolean isConnected();
 }

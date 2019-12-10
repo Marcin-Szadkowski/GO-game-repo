@@ -15,13 +15,15 @@ import gogame.server.transProtocol.TCP.TcpOutput;
  * @author marcin
  * @see Player
  */
+
 public class PlayerTest {
 	
-	@Test
+	
 	/**
 	 * Test metody setSize() z klasy @see Player
 	 * @see Player#setSize()
 	 */
+	/*
 	public void setSizeTest() {
 		TcpInput input = Mockito.mock(TcpInput.class);
 		TcpOutput output = Mockito.mock(TcpOutput.class);
@@ -40,7 +42,7 @@ public class PlayerTest {
 		}).when(lobby).findGame();
 						
 		assertEquals(Integer.valueOf(19), player.getGameSize());		
-	}
+	}*/
 	
 	@Test
 	/**
@@ -57,6 +59,22 @@ public class PlayerTest {
 		
 		assertNotNull("Gracz nie ma gry", player.getGame());
 		assertEquals(player.color, "Black");
+	}
+	@Test
+	public void runTest() {
+		TcpInput input = Mockito.mock(TcpInput.class);
+		TcpOutput output = Mockito.mock(TcpOutput.class);
+		Player player = new Player(output, input);
+		player.set(new Game(19), Mockito.mock(Player.class), "Black");
+		Mockito.when(input.hasNextLine()).thenReturn(false);
+		Thread temp = new Thread(player);
+		temp.start();
+		
+		while(temp.isAlive()) {
+			
+		}
+		assertFalse("Watek dziala", temp.isAlive());
+		
 	}
 
 }

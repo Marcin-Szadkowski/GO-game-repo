@@ -17,7 +17,7 @@ public class Player implements Runnable {
 		this.input = input;
 	}
 	public void set(Game game, Player opponent, String color) {
-		//System.out.println("Wywolanie metody set()");
+		System.out.println("Wywolanie metody set()");
 		this.game = game;
 		this.opponent = opponent;
 		this.color = color;
@@ -32,29 +32,39 @@ public class Player implements Runnable {
 			return game;
 		return null;
 	}
+	
 	public void run() {
-		//output.out("Gracz " + color);
-		setSize();
-			//Tu dodac sprawdzanie czy gracz podal rozmiar planszy
+		if(opponent != null){
+			output.out("GAME_STARTED");
+			processCommands();
+			
+		}				
+		if(opponent != null && opponent.output != null) {
+			//opponent.output.out("OTHER_PLAYER_LEFT");
+		}
 		//output.out("GAME_READY you are "+ color);						
 		System.out.println("Gracz" + color);
 		input.closeSocket();
 	}
-	private void setSize() {
-		while(opponent == null) {
-			if(input.hasNextLine()) {
-				//Tu mozna dodac wypisywanie do swojego Clienta "podaj rozmiar planszy" czy cos takiego
-				String command = input.nextLine();
-				if(command.startsWith("QUIT")) {
-					return;//Opuszczenie metody
-				}else if(command.startsWith("SIZE")) {
-					this.gameSize = Integer.parseInt(command.substring(5));
-					//Jezeli zostanie znaleziona gra o podanym rozmiarze planszy to Lobby przydzieli graczowi
-					// przeciwnika i watek opusci metode setSize()
-					Lobby.getInstance().findGame();
-				}
+	private void processCommands(){
+		while(input.hasNextLine()) {
+			String line = input.nextLine();
+			String[] commands = line.split(" ", 2);
+			String command = commands[0];
+			
+			switch(command) {
+			case "MOVE":
+				//Wywolaj metode move z game
+				break;
+			case "PASS":
+				//Przekaz wiadomosc do gry
+				break;
+			case "QUIT":
+				return;
 			}
+			
 		}
 	}
+
 	
 }
