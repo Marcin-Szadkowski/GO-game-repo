@@ -4,7 +4,7 @@ package gogame.server.transProtocol;
  * @author marcin
  *
  */
-public interface TransferProtocol {
+public interface TransferProtocol extends Runnable {
 	
 	/*
 	 * Initialize connection 
@@ -19,6 +19,10 @@ public interface TransferProtocol {
 	 */
 	public void recvMessage();
 	
-	public TransferProtocol getInstance();
+	public  void stop();
+	
+	public static TransferProtocol getInstance() {
+		return null;
+	}
 	
 }
