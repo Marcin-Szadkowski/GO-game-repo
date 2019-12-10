@@ -1,0 +1,5 @@
+package gogame.client.game.pawn;
+
+public class PawnPanel {
+
+}

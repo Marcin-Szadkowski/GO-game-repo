@@ -1,0 +1,11 @@
+package gogame.client.game.gui;
+
+public class Connector {
+	public int[] makeMove(int x,int y) {
+		int move[] = new int [2];
+		move[0]=x;
+		move[1]=y;
+		return move;
+	}
+
+}

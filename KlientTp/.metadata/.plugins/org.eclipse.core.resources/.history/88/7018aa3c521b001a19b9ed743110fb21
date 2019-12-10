@@ -1,0 +1,72 @@
+package gogame.client.game.performance;
+
+import gogame.client.gui.GameGUI;
+
+public class Game {
+	
+	      public int xMoved;
+	      public int yMoved;
+		  private static Game instance = null;
+		  private  Game(){
+
+		  }
+		  public static Game getInstance(){
+		    if(instance==null){
+		       instance = new Game();
+		      }
+		      return instance;
+		  }
+		  
+		  
+		  public void play() {
+		    	 GameGUI gui = new GameGUI();
+		    	 gui.inicialize();
+		    	 Game game=Game.getInstance();
+		    	 System.out.println(game.make);
+		    	 
+		     }
+		     
+		     
+		  public static boolean exit() {
+			  return true;
+		  }
+		  
+	      
+		  public void makeMove(int x, int y) {
+				xMoved=x;
+				yMoved=y;
+			   }
+		  public  int getSize(int size) {
+			  return size;
+		  }
+		  public  String quit() {
+			  return "QUIT";
+			  
+		  }
+		  public  String pass() {
+			  return "PASS";
+		  }
+		  public  String single() {
+			  return "SINGLE";
+		  }
+		  public  String multi() {
+			  return "MULTI";
+		  }
+		  public String sendMove() {
+			 
+			return "Move"+" "+String.valueOf(xMoved)+" "+String.valueOf(yMoved);
+		  }
+		  
+		  
+		  
+		 // public String gameStarted() {
+			  
+		  //}
+	} 
+
+   
+
+	
+
+
+

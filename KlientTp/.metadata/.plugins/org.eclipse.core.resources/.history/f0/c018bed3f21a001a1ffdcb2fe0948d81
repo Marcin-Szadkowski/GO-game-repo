@@ -1,0 +1,21 @@
+package gogame.client.game.performance;
+
+import gogame.client.game.gui.Connector;
+
+public class Game {
+	
+	public void play() {
+	
+		Connector connector = new Connector();
+		if(connector.exit==true) {System.out.println("Player ended the game");}
+	
+	}
+
+	public void main() {
+	
+	
+	}
+	
+
+
+}

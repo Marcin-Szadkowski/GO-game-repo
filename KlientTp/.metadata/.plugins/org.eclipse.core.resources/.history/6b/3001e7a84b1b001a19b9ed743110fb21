@@ -1,0 +1,27 @@
+package gogame.client.game.performance;
+
+
+public class Game {
+	
+	     public void play() {}
+		  private static Game instance = null;
+		  private void Game(){
+
+		  }
+		  public static Game getInstance(){
+		    if(instance==null){
+		       instance = new Game();
+		      }
+		      return instance;
+		  }
+		  public static boolean exit() {
+			  return true;
+		  }
+		  
+	
+	}
+
+	
+
+
+

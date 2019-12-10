@@ -1,0 +1,18 @@
+package gogame.client.game.performance;
+
+
+public class Game {
+	
+	public void play() {
+	
+	
+	}
+
+	public void main() {
+	
+	
+	}
+	
+
+
+}

@@ -1,0 +1,21 @@
+package gogame.client.game.gui;
+
+
+class Connector{
+
+	  //eventually provides setters and getters
+	  public float x;
+	  public float y;
+	  //------------
+
+	  private static Connector instance = null;
+	  private void Container(){
+
+	  }
+	  public static Connector getInstance(){
+	    if(instance==null){
+	       instance = new Connector();
+	      }
+	      return instance;
+	  }
+	}

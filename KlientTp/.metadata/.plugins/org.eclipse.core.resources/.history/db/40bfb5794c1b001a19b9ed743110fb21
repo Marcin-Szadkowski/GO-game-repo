@@ -1,0 +1,8 @@
+package gogame.client.game.performance;
+
+public class GameMain {
+  public static void main() {
+	  Game game= Game.getInstance();
+  }
+ 
+}

@@ -1,0 +1,21 @@
+package gogame.client.game.gui;
+
+import java.awt.Color;
+import java.awt.Graphics;
+
+import javax.swing.JPanel;
+
+public class ActionPanel extends JPanel {
+	
+	public ActionPanel(int size) {
+	   setBounds(150,100,630,630);
+	   setBackground(Color.black);
+	   setVisible(true);
+	}
+	public void paint(Graphics g) {
+		
+		
+	}
+		
+
+}

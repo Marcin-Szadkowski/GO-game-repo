@@ -1,0 +1,12 @@
+package gogame.client.game.gui;
+
+public class ConnectorGui {
+	public static int size ;
+	public ConnectorGui() {
+		
+	}
+    public int getSize() {
+    	return size;
+    }
+	
+}

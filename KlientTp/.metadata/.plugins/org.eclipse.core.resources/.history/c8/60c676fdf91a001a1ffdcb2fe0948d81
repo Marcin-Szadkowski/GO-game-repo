@@ -1,0 +1,23 @@
+package gogame.client.game.performance;
+
+
+import gogame.client.game.gui.GameGUI;
+
+public class Game {
+	
+	public void play() {
+	
+		
+		if(Connector) {System.out.println("chuj");}
+	
+	}
+
+	public void main() {
+	   Game game = new Game();
+	   game.play();
+	
+	}
+	
+
+
+}

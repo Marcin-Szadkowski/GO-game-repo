@@ -1,0 +1,9 @@
+package gogame.client.game.gui;
+
+public class ConnectorGui {
+	
+	public ConnectorGui() {
+		
+	}
+
+}

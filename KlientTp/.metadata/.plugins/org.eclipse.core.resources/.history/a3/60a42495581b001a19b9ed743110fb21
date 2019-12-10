@@ -1,0 +1,174 @@
+package gogame.client.gui;
+
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import gogame.client.game.pawn.Pawn;
+import gogame.client.game.pawn.PawnPanel;
+import gogame.client.game.performance.Game;
+
+public class GameGUI extends JFrame {
+	public static boolean gameStarted=false;
+	
+     
+	
+	static JFrame frame;
+     JButton buttonConnect,buttonSize9,buttonSize13,
+     buttonSize19,buttonGameMulti,buttonGameSingle,
+     buttonExit,buttonPass,start;
+     
+     JLabel labelTurn;
+     JPanel panel1;
+     PawnPanel pawnPanel;
+     
+     
+     public static boolean pass=false;
+     public static boolean connect = false;
+     public static boolean exit = false;
+     public static boolean singlePlayer =false;
+     public static boolean multiPlayer = false;
+     public static int size=0;
+     public static Color color;
+     
+	public void gameFrame(){
+		
+	 
+	    frame = new JFrame();
+		frame.setSize(900,900);
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		frame.setVisible(true);	
+		
+	     buttonConnect = new JButton("connect ");
+	     buttonSize9 = new JButton("9");
+	     buttonSize13 = new JButton("13");
+	     buttonSize19 = new JButton("19");
+	     buttonGameMulti = new JButton("Multiplayer");
+	     buttonGameSingle = new JButton("Singleplayer");
+	     buttonExit = new JButton("EXIT");
+	     buttonPass = new JButton("PASS");
+	     labelTurn = new JLabel("TURN");
+	    
+		panel1= new JPanel();
+		panel1.setBackground(Color.BLACK);
+		panel1.setBounds(0,750,900,150);
+		panel1.setLayout(new GridLayout(1,8));
+		pawnPanel = new PawnPanel();
+		pawnPanel.addMouseListener(new GameMouseListener(pawnPanel));
+		frame.add(panel1);
+		frame.add(pawnPanel);
+	
+	    panel1.add(buttonConnect);
+	    panel1.add(buttonSize9);
+	    panel1.add(buttonSize13);
+	    panel1.add(buttonSize19);
+	    panel1.add(buttonGameMulti);
+	    panel1.add(buttonGameSingle);
+	    panel1.add(buttonExit);
+	    panel1.add(buttonPass);
+	  
+	    frame.setVisible(true);
+	    frame.repaint();
+	    
+	     final Game game= Game.getInstance();
+		
+       
+         
+         buttonPass.addActionListener(new ActionListener() {
+         
+         public void actionPerformed(ActionEvent e) {
+        	 
+        	   pass=true;
+         		}
+        });
+         buttonSize9.addActionListener(new ActionListener() {
+             
+             public void actionPerformed(ActionEvent e) {
+            	 
+            	 size=9;
+             		}
+            });
+         buttonSize13.addActionListener(new ActionListener() {
+             
+             public void actionPerformed(ActionEvent e) {
+            	 
+            	 size =13;
+             		}
+            });
+         buttonSize19.addActionListener(new ActionListener() {
+             
+             public void actionPerformed(ActionEvent e) {
+            	 size =19;
+            	 
+             		}
+            });
+         buttonGameSingle.addActionListener(new ActionListener() {
+             
+             public void actionPerformed(ActionEvent e) {
+            	 
+            	 singlePlayer=true;
+             		}
+            });
+         buttonGameMulti.addActionListener(new ActionListener() {
+             
+             public void actionPerformed(ActionEvent e) {
+            	  
+            	 multiPlayer=true;
+            	 
+             		}
+            });
+         buttonConnect.addActionListener(new ActionListener() {
+             
+             public void actionPerformed(ActionEvent e) {
+            	   connect =true;
+            	 
+             		}
+            });
+       
+         buttonExit.addActionListener(new ActionListener() {
+             
+             public void actionPerformed(ActionEvent e) {
+            	 
+            	 exit=true;
+             	}
+            });
+         
+           
+	}
+	
+//--------------------------------------------------------------------METODY
+	public void addPawn(int x, int y, int diameter ,Color color) {
+		
+		 pawnPanel.addPawn(new Pawn(x,y,diameter,color));
+		 pawnPanel.repaint();
+	}
+	public void gameChosen() {
+		if((size!=0)  && ((singlePlayer==true) || (multiPlayer==true))) {System.out.println("gamechosen");}
+		
+	}
+	public String getSize(int size)
+	{
+		return String.valueOf(size);
+	}
+	
+	
+
+	
+public static void inicialize() {
+	
+      GameGUI gameGUI= new GameGUI();
+      gameGUI.gameFrame();
+    
+   
+    
+		
+	}
+	
+}

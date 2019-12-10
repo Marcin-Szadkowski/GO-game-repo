@@ -1,0 +1,22 @@
+package gogame.client.game.gui;
+
+import javax.swing.JFrame;
+
+public class GameGUI extends JFrame {
+
+	
+	public void gameFrame(){
+		setSize(900,900);
+		setVisible(true);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setVisible(true);
+		
+	}
+public static void main(String[] args) {
+	
+      GameGUI gameGUI= new GameGUI();
+      gameGUI.gameFrame();
+		
+	}
+	
+}

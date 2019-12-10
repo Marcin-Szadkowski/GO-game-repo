@@ -1,0 +1,72 @@
+package gogame.client.game.gui;
+
+import java.awt.Color;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+public class GameGUI extends JFrame {
+
+	
+	public void gameFrame(){
+		JFrame frame = new JFrame();
+		frame.setSize(900,900);
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		frame.setVisible(true);	
+		
+
+	    JButton buttonConnect = new JButton("connect ");
+	    JButton buttonSize9 = new JButton("9");
+	    JButton buttonSize13 = new JButton("13");
+	    JButton buttonSize19 = new JButton("19");
+	    JButton buttonGameMulti = new JButton("Multiplayer");
+	    JButton buttonGameSingle = new JButton("Singleplayer");
+	    JButton buttonExit = new JButton("EXIT");
+	    JButton buttonPass = new JButton("PASS");
+	    JLabel labelTurn = new JLabel("TURN");
+	   
+	    JPanel panelAction = new JPanel();
+	    panelAction.setBounds(150,100,630,630);
+	    panelAction.setBackground(Color.black);
+	    
+	    int tempShift =150;  
+	    buttonConnect.setBounds(25,50 +tempShift,80,50);
+	    buttonGameSingle.setBounds(25,100 +tempShift,80,50);
+	    buttonGameMulti.setBounds(25,150 +tempShift,80,50);
+	    buttonSize9.setBounds(25,200 +tempShift,80,50);
+	    buttonSize13.setBounds(25,250 +tempShift,80,50);
+	    buttonSize19.setBounds(25,300 +tempShift,80,50);
+	    buttonExit.setBounds(25,350 +tempShift,80,50);
+	    buttonPass.setBounds(25,400 +tempShift,80,50);
+	    labelTurn.setBounds(400,500 +tempShift,80,50);
+	    
+	    frame.add(buttonConnect);
+	    frame.add(buttonSize9);
+	    frame.add(buttonSize13);
+	    frame.add(buttonSize19);
+	    frame.add(buttonGameMulti);
+	    frame.add(buttonGameSingle);
+	    frame.add(buttonExit);
+	    frame.add(buttonPass);
+	    frame.add(labelTurn);
+	    frame.add(panelAction);
+	 
+	    
+	    
+	    
+	  
+        
+      
+         repaint();
+	}
+public static void main(String[] args) {
+	
+      GameGUI gameGUI= new GameGUI();
+      gameGUI.gameFrame();
+		
+	}
+	
+}
