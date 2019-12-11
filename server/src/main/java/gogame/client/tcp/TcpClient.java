@@ -75,8 +75,8 @@ public class TcpClient implements TransferProtocol {
 	 */
 	@Override
 	public boolean hasNextLine() {
-		if(input == null)
-			return false;
+		//if(input == null)
+			//return false;
 		if(input.hasNextLine())
 			return true;
 		return false;

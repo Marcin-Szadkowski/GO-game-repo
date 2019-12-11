@@ -56,6 +56,11 @@ public class TcpServer implements TransferProtocol {
 			e.printStackTrace();		
 		}		
 	}
+	public boolean isRunning() {
+		if(listener.isBound())
+			return true;
+		return false;
+	}
 
 	@Override
 	public void run() {
