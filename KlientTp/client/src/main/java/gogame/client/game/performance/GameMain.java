@@ -5,6 +5,7 @@ public class GameMain {
 	  Game game= Game.getInstance();
 	 // game.play();
 	  game.createBoard();
+	  game.play();
   }
  
 }

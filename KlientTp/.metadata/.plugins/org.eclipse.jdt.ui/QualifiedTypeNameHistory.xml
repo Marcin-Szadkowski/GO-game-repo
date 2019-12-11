@@ -17,4 +17,5 @@
     <fullyQualifiedTypeName name="java.awt.BorderLayout"/>
     <fullyQualifiedTypeName name="gogame.client.transProtocol.TcpClient"/>
     <fullyQualifiedTypeName name="gogame.client.game.performance.Game"/>
+    <fullyQualifiedTypeName name="javax.swing.BorderFactory"/>
 </qualifiedTypeNameHistroy>

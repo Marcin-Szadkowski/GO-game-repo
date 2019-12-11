@@ -2,6 +2,7 @@
 <section name="Workbench">
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="C:\Users\User\Desktop\gogameRepo\server"/>
 			<item value="C:\Users\User\Desktop\projektTP\GO-game-repo\server"/>
 		</list>
 		<list key="projectNameTemplate">

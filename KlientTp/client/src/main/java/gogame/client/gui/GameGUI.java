@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,9 +26,9 @@ public class GameGUI extends JFrame {
      buttonSize19,buttonGameMulti,buttonGameSingle,
      buttonExit,buttonPass,start;
      
-     JLabel labelTurn;
-     JPanel panel1;
-     PawnPanel pawnPanel;
+    static JLabel labelTurn,labelYourStats,labelOponentStats;
+     static JPanel panel1,panel2,panel3,panel4;
+     static PawnPanel pawnPanel;
      
      public static int turn;
      public static boolean pass=false;
@@ -58,25 +59,36 @@ public class GameGUI extends JFrame {
 	     buttonExit = new JButton("EXIT");
 	     buttonPass = new JButton("PASS");
 	     labelTurn = new JLabel("TURN");
+	     labelYourStats = new JLabel("YourStats");
+	     labelOponentStats = new JLabel("OponentStats");
 	    
 		panel1= new JPanel();
+		panel2= new JPanel();
+		panel3 = new JPanel();
+		panel4 = new JPanel();
 		panel1.setBackground(Color.BLACK);
-		panel1.setBounds(0,750,900,150);
-		panel1.setLayout(new GridLayout(1,8));
+		panel1.setBounds(0,725,900,150);
+		panel2.setBounds(0,725,300,150);//panel2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		panel3.setBounds(300,725,300,150);//panel3.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		panel4.setBounds(600,725,300,150);//panel4.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		panel1.setLayout(new GridLayout());
 		pawnPanel = new PawnPanel();
 		pawnPanel.addMouseListener(new GameMouseListener(pawnPanel));
 		frame.add(panel1);
 		frame.add(pawnPanel);
+		panel1.add(panel2);
+		panel1.add(panel3);
+		panel1.add(panel4);
 		
-	
-	    panel1.add(buttonConnect);
-	    panel1.add(buttonSize9);
-	    panel1.add(buttonSize13);
-	    panel1.add(buttonSize19);
-	    panel1.add(buttonGameMulti);
-	    panel1.add(buttonGameSingle);
-	    panel1.add(buttonExit);
-	    panel1.add(buttonPass);
+	    panel3.setLayout(new GridLayout(2,4));
+	    panel3.add(buttonConnect);
+	    panel3.add(buttonSize9);
+	    panel3.add(buttonSize13);
+	    panel3.add(buttonSize19);
+	    panel3.add(buttonGameMulti);
+	    panel3.add(buttonGameSingle);
+	    panel3.add(buttonExit);
+	    panel3.add(buttonPass);
 	  
 	    frame.setVisible(true);
 	    frame.repaint();
@@ -181,6 +193,10 @@ public class GameGUI extends JFrame {
 		return gameType;
 		
 	}
+	public static void enableBoard() {
+		pawnPanel.boardSize=size;
+		pawnPanel.setVisible(true);
+	}
 	public void disabledBeforeConnection() {
 		buttonSize9.setEnabled(false);
 		buttonSize13.setEnabled(false);
@@ -228,7 +244,8 @@ public static void inicialize() {
       gameGUI.gameFrame();
       gameGUI.disabledBeforeConnection();
       Game game = Game.getInstance();
-      /*
+      
+      pawnPanel.setVisible(false);
       while(connect!=true) {
     	if(game.gameReady) {connect = true;}
     	  System.out.println("waiting for connect");
@@ -238,8 +255,8 @@ public static void inicialize() {
     	  if(gameGUI.gameChosen()==true) {status=true;gameGUI.disableAfterChoice();}
     	 System.out.println("waiting !!! add size and type of a game");
       }
-      
-   */
+      enableBoard();
+   
     
 		
 	}

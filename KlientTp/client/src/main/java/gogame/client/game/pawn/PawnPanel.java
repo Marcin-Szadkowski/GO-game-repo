@@ -17,9 +17,16 @@ public class PawnPanel extends JPanel{
 public List<Pawn> pawns = new LinkedList<Pawn>();
 public List<ClickAreaSquare> squares = new LinkedList<ClickAreaSquare>();
 public static int type;
-public static int boardSize=1;
+public static int boardSize;
 
-	
+//metoda przechodzi po liscie obiektow pawn i sprawdza czy taki pawn juz zostal dodany do listy
+	public boolean checkIfPawnExists(int x,int y) {
+		for(Pawn p  : pawns) {
+			
+		  if((p.getX()==x)&&(p.getY()==y))return true;		
+		}
+	 return false;
+	}
 	
 	public void addPawn(Pawn pawn) {
 		pawns.add(pawn);

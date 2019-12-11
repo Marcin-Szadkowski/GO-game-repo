@@ -8,17 +8,17 @@ public class BoardGui  {
 	
 	 public BoardGui(int type) {
 		 
-		 if(type==1) {
+		 if(type==9) {
 			 size =9;
 			 stepWidth=65;
 			 stepHeight=65;
 		 }
-		 else if(type==2) {
+		 else if(type==13) {
 			 size =13;
 			 stepWidth=47;
 			 stepHeight=47;
 		 }
-		 else if(type==3) {
+		 else if(type==19) {
 			 size =19;
 			 stepWidth=33;
 			 stepHeight=33;

@@ -25,7 +25,7 @@ public class Game {
 		    	 gui.inicialize();
 		  }
 		  
-		/*
+		
 		  public void play() throws Exception{
 		    try {
 		    	client = new TcpClient();
@@ -86,7 +86,7 @@ public class Game {
 		    	}	 
 		  }
 		 
-		     */
+		     
 		     
 		  public static boolean exit() {
 			  return true;
@@ -118,6 +118,7 @@ public class Game {
 			//return "Move"+" "+String.valueOf(xMoved)+" "+String.valueOf(yMoved);
 			  System.out.println("Move"+" "+String.valueOf(xMoved)+" "+String.valueOf(yMoved));
 		  }
+		  
 		
 		  
 		  
