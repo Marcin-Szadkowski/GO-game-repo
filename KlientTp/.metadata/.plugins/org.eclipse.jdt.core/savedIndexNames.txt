@@ -1,3 +1,2 @@
 INDEX VERSION 1.131+C:\Users\User\Desktop\gogame\KlientTp\.metadata\.plugins\org.eclipse.jdt.core
-205467800.index
 262142283.index

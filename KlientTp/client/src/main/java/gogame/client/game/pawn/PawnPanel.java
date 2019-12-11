@@ -59,7 +59,7 @@ public static int boardSize=1;
 			g.drawLine(boardCor(size,x,y)[(size+1)*i][0]+7,boardCor(size,x,y)[(size+1)*i][1]+30,boardCor(size,x,y)[(size+1)*i+size][0]+7,boardCor(size,x,y)[(size+1)*i][1]+30);
 		}
 		
-		
+		//square width i height na 24 na sztywniaka  
 		for(int i=0 ; i<(size+1)*(size+1); i++) {	
 			 squares.add(new ClickAreaSquare(boardCor(size,x,y)[i][0]-12+7,boardCor(size,x,y)[i][1]-12+30,24,24));
 			}
@@ -102,6 +102,37 @@ public static int boardSize=1;
 		return boardCoordinates;
 	}
 	
+	public int[] coordinatesScaleConverter(int x, int y, int size) {
+		int[] output = new int [2];
+		int orientX=0,orientY = 0;
+		if(size == 1) {orientX=100 ; orientY=65;}
+		else if(size == 2) {orientX= 100; orientY=47;}
+		else if(size == 3) {orientX= 100; orientY=33;}
+		int tempX=0,tempY=0;
+		while(x!=orientX) {
+		x-=orientY;	    // odejmuje Y bo jest bez szifta i jest i tak rowny orientX (kwadratowa siatka)
+		tempX++;	
+		}
+		while(y!=orientY) {
+			y-=orientY;	   
+			tempY++;	
+		}
+		output[0]=tempX;
+		output[1]=tempY;
+		return output;	
+	}
+	public int[] coordinatesFromBoardToPawnCovnerter(int x, int y) {
+		int[] output = new int [2];
+		output[0] = x+7-12;
+		output[1]=y+30-12;
+		return output;
+	}
+	public int[] coordinatesFromPawnToBoardCovnerter(int x, int y) {
+		int[] output = new int [2];
+		output[0] = x-7+12;
+		output[1]=y-30+12;
+		return output;
+	}
 	
 	
 	

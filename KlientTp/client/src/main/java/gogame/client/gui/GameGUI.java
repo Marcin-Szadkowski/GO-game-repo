@@ -29,7 +29,7 @@ public class GameGUI extends JFrame {
      JPanel panel1;
      PawnPanel pawnPanel;
      
-     
+     public static int turn;
      public static boolean pass=false;
      public static boolean connect = false;
      public static boolean exit = false;
@@ -156,14 +156,14 @@ public class GameGUI extends JFrame {
 	}
 	
 //--------------------------------------------------------------------METODY
-	public void addPawn(int x, int y, int diameter ,Color color) {
+	public void addPawn(int x, int y,Color color) {
 		
-		 pawnPanel.addPawn(new Pawn(x,y,diameter,color));
+		 pawnPanel.addPawn(new Pawn(x,y,24,color));
 		 pawnPanel.repaint();
 	}
-	public void removePawn(int x, int y, int diameter ,Color color) {
+	public void removePawn(int x, int y ,Color color) {
 		
-		 pawnPanel.addPawn(new Pawn(x,y,diameter,color));
+		 pawnPanel.addPawn(new Pawn(x,y,24,color));
 		 pawnPanel.repaint();
 	}
 	public boolean gameChosen() {
@@ -221,14 +221,14 @@ public class GameGUI extends JFrame {
 	
 	
 public static void inicialize() {
-	  
+	
 	  boolean status = false;
 	  
       GameGUI gameGUI= new GameGUI();
       gameGUI.gameFrame();
       gameGUI.disabledBeforeConnection();
       Game game = Game.getInstance();
-      
+      /*
       while(connect!=true) {
     	if(game.gameReady) {connect = true;}
     	  System.out.println("waiting for connect");
@@ -239,7 +239,7 @@ public static void inicialize() {
     	 System.out.println("waiting !!! add size and type of a game");
       }
       
-   
+   */
     
 		
 	}

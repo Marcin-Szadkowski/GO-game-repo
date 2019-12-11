@@ -4,7 +4,7 @@ import gogame.client.gui.GameGUI;
 import gogame.client.transProtocol.TcpClient;
 
 public class Game {
-	
+	      public boolean yourTurn;
 	      public int xMoved;
 	      public int yMoved;
 	      public boolean gameReady=false;
@@ -25,7 +25,7 @@ public class Game {
 		    	 gui.inicialize();
 		  }
 		  
-		/*  
+		/*
 		  public void play() throws Exception{
 		    try {
 		    	client = new TcpClient();
@@ -49,9 +49,11 @@ public class Game {
 		    	  
 		    	  
 		      }else if(response.startsWith("YOUR_TURN")) {
+		    	  yourTurn=true;
 		    	  // na labelu wyswietlic
 		      }else if(response.startsWith("NOT_YOUR_TURN")) {
 		    	  
+		    	   yourTurn=false;
 		    	  // wyspisywanie na labelu
 		      }else if(response.startsWith("DELETE")) {
 		    	  // pobieranie jednego  stringa z parami wspó³ 
@@ -82,9 +84,9 @@ public class Game {
 		    	 client.stop();	
 		    		
 		    	}	 
-		  }*/
+		  }
 		 
-		     
+		     */
 		     
 		  public static boolean exit() {
 			  return true;
@@ -116,6 +118,7 @@ public class Game {
 			//return "Move"+" "+String.valueOf(xMoved)+" "+String.valueOf(yMoved);
 			  System.out.println("Move"+" "+String.valueOf(xMoved)+" "+String.valueOf(yMoved));
 		  }
+		
 		  
 		  
 		  
