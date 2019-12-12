@@ -74,8 +74,11 @@ public class TcpServer implements TransferProtocol {
 			
 			while (execute) {
 				sock1 = listener.accept();
-				PlayerInLobby player1 = new PlayerInLobby(new TcpOutput(sock1), new TcpInput(sock1));
-				lobby.addPlayer(player1);
+				if(sock1.isConnected()) {
+					PlayerInLobby player1 = new PlayerInLobby(new TcpOutput(sock1), new TcpInput(sock1));
+					lobby.addPlayer(player1);
+				}
+				
 												
 			}			
 		}catch(SocketException e) {

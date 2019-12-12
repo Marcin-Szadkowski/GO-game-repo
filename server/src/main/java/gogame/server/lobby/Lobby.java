@@ -38,6 +38,7 @@ public class Lobby implements GamesHandler {
 	}
 	@Override
 	public synchronized void  findGame() {
+		System.out.println("Wywolano findGame()");
 		int gracze = players.size();
 		for(int i=0; i< gracze; i++) {
 			for(int j= i+1; j<gracze; j++) {
@@ -49,6 +50,7 @@ public class Lobby implements GamesHandler {
 		}
 	}
 	private boolean comparePlayers(PlayerInLobby player1, PlayerInLobby player2) {
+		System.out.println("Wywolano comparePlayers()");
 		if(player1.isReady() != true || player2.isReady() != true)
 			return false;
 		if(player1.state != "WAITING" || player2.state !="WAITING")
@@ -67,6 +69,7 @@ public class Lobby implements GamesHandler {
 	 */
 	@Override
 	public void matchPlayers(PlayerInLobby player1, PlayerInLobby player2) {
+		System.out.println("Wywolano matchPlayers()");
 		System.out.println("Wywolanie matchPlayers");
 		//Tworze nowa gre dla dopasowanych graczy
 		Game game = new Game(player1.getGameSize());

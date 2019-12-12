@@ -3,7 +3,7 @@ package gogame.server.transProtocol.TCP;
 import java.util.Scanner;
 
 public class ServerMain {
-	public void main(String[] args) {
+	public static void main(String[] args) {
 		TcpServer server = (TcpServer) TcpServer.getInstance();
 		Thread serverThread = new Thread(server);
 		
@@ -25,6 +25,7 @@ public class ServerMain {
 				server.stop();
 				System.out.println("Server stopped");
 			}else if(command.startsWith("exit")) {
+				input.close();
 				System.exit(0);
 			}
 		}		

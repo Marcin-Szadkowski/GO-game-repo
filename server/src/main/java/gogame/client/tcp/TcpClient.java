@@ -27,8 +27,7 @@ public class TcpClient implements TransferProtocol {
 		if(instance == null) {
 			synchronized (TcpClient.class) {
 				if(instance == null) {
-					instance = new TcpClient();
-					System.out.println("Go game Server is running...");
+					instance = new TcpClient();					
 				}
 			}
 		}
@@ -99,6 +98,11 @@ public class TcpClient implements TransferProtocol {
 	@Override
 	public boolean isConnected() {
 		if(socket.isConnected())
+			return true;
+		return false;
+	}
+	public boolean isClosed() {
+		if(socket.isClosed())
 			return true;
 		return false;
 	}

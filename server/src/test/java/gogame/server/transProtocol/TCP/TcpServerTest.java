@@ -18,7 +18,7 @@ import gogame.client.tcp.TcpClient;
  * @see PlayerInLobby
  */
 public class TcpServerTest {
-
+	
 	/**
 	 * Metoda sprawdzajaca prawidlowe podlaczenie socketa do serwera
 	 * @throws IOException
@@ -45,14 +45,14 @@ public class TcpServerTest {
 		   
 		    server.stop();
 	    }     
-	    
+	   
 	}*/
-
+	@Test
 	/**
 	 * Metoda sprawdzajaca podlaczenie dwoch Clientow do serwera
 	 * oraz poprawne zakonczenie dzialania serwera
 	 */
-/*	public void twoClientsSimpleTest() {
+	public void twoClientsSimpleTest() {
 		TcpServer server = (TcpServer) TcpServer.getInstance();
 		Thread serverThread = new Thread(server);
 		//Uruchamiam watek server
@@ -81,13 +81,13 @@ public class TcpServerTest {
 		//assertFalse(client1.isConnected());
 		//assertFalse(client1.isConnected());
 		assertFalse(serverThread.isAlive());
-	}*/
-	@Test
+	}
+	
 	/**
 	 * Test imitujacac krotkie dzialanie dwoch clientow
 	 * Ma na celu doprowadzic do momentu, w ktorym gracze zostaja przydzieleni do tej samej gry
 	 */
-	public void twoClientsTest() {
+	/*public void twoClientsTest() {
 		//Pobieramy instancje TcpServer
 		TcpServer server = (TcpServer) TcpServer.getInstance();
 		//Tworzy zmienna klasy watek potrzebna do wykonania metody run() z klasy TcpServer
@@ -121,9 +121,10 @@ public class TcpServerTest {
 		client1.sendMessage("TYPE MULTI");
 		client2.sendMessage("TYPE MULTI");
 		
+		System.out.println("Po wyslaniu danych do serwera");
 		String message;
 		//Teraz czekam az serwer zwroci clientowi GAME_STARTED
-		while(client1.hasNextLine()) {
+		while(!client1.isClosed()) {
 			message = client1.recvMessage();
 			if(message.startsWith("GAME_STARTED")) {
 				assertTrue(message.startsWith("GAME_STARTED"));
@@ -133,7 +134,7 @@ public class TcpServerTest {
 		assertTrue(client1.hasNextLine());
 		
 		
-		while(client2.hasNextLine()) {
+		while(!client2.isClosed()) {
 			message = client1.recvMessage();
 			if(message.startsWith("GAME_STARTED")) {
 				assertTrue(message.startsWith("GAME_STARTED"));
@@ -151,7 +152,7 @@ public class TcpServerTest {
 			
 		}
 		assertFalse(serverThread.isAlive());
-	}
+	}*/
 
 	
 }

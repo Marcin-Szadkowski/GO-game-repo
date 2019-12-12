@@ -67,5 +67,18 @@ public class PlayerInLobbyTest {
 		
 		assertTrue(player.isReady());
 	}
+	@Test
+	/**
+	 * Test sprawdzajacy poprawnosc dzialania metody getGameSize()
+	 */
+	public void getGameSizeTest() {
+		TcpInput input = Mockito.mock(TcpInput.class);
+		TcpOutput output = Mockito.mock(TcpOutput.class);
+		PlayerInLobby player = new PlayerInLobby(output, input);
+		
+		player.gameSize =13;
+		assertEquals(Integer.valueOf(13), player.getGameSize());
+	}
+	
 
 }
