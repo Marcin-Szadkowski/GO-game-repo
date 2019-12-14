@@ -14,8 +14,7 @@ public class ServerMain {
 		while(input.hasNextLine()) {
 			command = input.next();
 			if(command.startsWith("run")) {
-				serverThread.start();
-				System.out.println("Server is running...");
+				serverThread.start();			
 				break;
 			}
 		}
@@ -23,7 +22,7 @@ public class ServerMain {
 			command = input.next();
 			if(command.startsWith("stop")) {
 				server.stop();
-				System.out.println("Server stopped");
+				
 			}else if(command.startsWith("exit")) {
 				input.close();
 				System.exit(0);

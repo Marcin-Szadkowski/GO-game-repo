@@ -1,12 +1,12 @@
 package gogame.server.lobby;
 
-import gogame.server.game.Player;
+import gogame.server.lobby.member.Data;
 
 public interface GamesHandler{
-	public void findGame();
-	public void addPlayer(PlayerInLobby player);
-	public void deletePlayer(PlayerInLobby player);
+	public void findGame(Data data);
+	public void addPlayer(Data data);
+	public void deletePlayer(Data data);
 	public Integer howManyPlayers();
-	void matchPlayers(PlayerInLobby player1, PlayerInLobby player2);
+	void matchPlayers(Data data1, Data data2);
 	
 }

@@ -4,8 +4,12 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
 import gogame.server.transProtocol.TransferProtocol;
-import gogame.server.lobby.*;
+import gogame.server.lobby.member.Connector;
 /**
  * Klasa rozszerzajaca interface TransferProtocol
  * W oparciu o TCP
@@ -16,19 +20,10 @@ public class TcpServer implements TransferProtocol {
 	private ServerSocket listener;
 	private volatile static TcpServer instance;
 	private volatile boolean execute = true;
+	static ExecutorService pool;
 	
 	public void initialize() {
 				
-	}
-
-	public void sendMessage() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void recvMessage() {
-		// TODO Auto-generated method stub
-		
 	}
 	/**
 	 * Metoda zwracajaca instancje klasy TcpServer
@@ -47,7 +42,7 @@ public class TcpServer implements TransferProtocol {
 	public void stop(){
 		
 		this.execute = false;
-		Lobby.getInstance().closeLobby();
+		pool.shutdown();
 		try {
 			System.out.println("Server closing...");
 			if(listener != null)
@@ -62,30 +57,33 @@ public class TcpServer implements TransferProtocol {
 		return false;
 	}
 
-	@Override
 	public void run() {
 		Socket sock1;
 		try{
 			listener = new ServerSocket(58901);
 			System.out.println("Go game Server is running...");
 			//Tworzymy instancje lobby
-			GamesHandler lobby = Lobby.getInstance();
-			System.out.println("Uruchomiono lobby");
+			pool = Executors.newFixedThreadPool(20);
 			
 			while (execute) {
 				sock1 = listener.accept();
 				if(sock1.isConnected()) {
-					PlayerInLobby player1 = new PlayerInLobby(new TcpOutput(sock1), new TcpInput(sock1));
-					lobby.addPlayer(player1);
-				}
-				
-												
+					Connector connector = new Connector(sock1);
+					pool.execute(connector);
+				}											
 			}			
 		}catch(SocketException e) {
 			//Nie rob nic, wyjatek zostal wywolany, poniewaz administrator wylacza serwer
 		}
 		catch(IOException e) {
 			e.printStackTrace();
-		}							
+		}
+		try {
+			if(!pool.awaitTermination(10, TimeUnit.SECONDS))
+				pool.shutdownNow();
+		}catch(InterruptedException e) {
+			pool.shutdownNow();
+			//Thread.currentThread().interrupt();
+		}
 	}	
 }
