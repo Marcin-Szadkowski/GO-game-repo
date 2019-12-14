@@ -23,7 +23,8 @@ public class LobbyTest {
 		PlayerInLobby player2 = new PlayerInLobby(output, input);
 		
 		lobby.addPlayer(player2);
-
+		
+		assertEquals(Integer.valueOf(2), lobby.howManyPlayers());
 		lobby.closeLobby();
 		
 		while(!Lobby.pool.isTerminated()) {

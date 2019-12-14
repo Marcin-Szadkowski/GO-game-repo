@@ -10,15 +10,7 @@ public interface TransferProtocol extends Runnable {
 	 * Initialize connection 
 	 */
 	public void initialize();
-	/*
-	 * Sends message to the client
-	 */
-	public void sendMessage();
-	/*
-	 * Receives message from client
-	 */
-	public void recvMessage();
-	
+
 	public  void stop();
 	
 	public static TransferProtocol getInstance() {
