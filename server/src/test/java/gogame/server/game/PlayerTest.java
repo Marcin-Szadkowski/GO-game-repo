@@ -7,6 +7,7 @@ import org.mockito.Mockito;
 import org.mockito.stubbing.Answer;
 
 import gogame.server.lobby.Lobby;
+import gogame.server.lobby.member.Data;
 import gogame.server.transProtocol.TCP.TcpInput;
 import gogame.server.transProtocol.TCP.TcpOutput;
 
@@ -17,64 +18,21 @@ import gogame.server.transProtocol.TCP.TcpOutput;
  */
 
 public class PlayerTest {
-	
-	
-	/**
-	 * Test metody setSize() z klasy @see Player
-	 * @see Player#setSize()
-	 */
-	/*
-	public void setSizeTest() {
-		TcpInput input = Mockito.mock(TcpInput.class);
-		TcpOutput output = Mockito.mock(TcpOutput.class);
-		Lobby lobby = Mockito.mock(Lobby.class);
-			
-		Player player = new Player(output, input);
-		Mockito.when(input.hasNextLine()).thenReturn(true);
-		Mockito.when(input.nextLine()).thenReturn("SIZE 19");
-		
-		new Thread(player).start();
-		
-		Mockito.doAnswer((Answer) invocation ->{
-			player.set(new Game(19), new Player(output, input), "Black");
-			System.out.println("zostaje wywolana ta metoda");
-			return null;
-		}).when(lobby).findGame();
-						
-		assertEquals(Integer.valueOf(19), player.getGameSize());		
-	}*/
-	
+
 	@Test
 	/**
-	 * Test metody set() z klasy @see Player
-	 * @see Player#set()
+	 * Test sprawdzajacy poprawnosc metod z klasy Player
+	 * @see Player#getGame()
+	 * @see Player#getColor()
 	 */
 	public void setTest() {
-		TcpInput input = Mockito.mock(TcpInput.class);
-		TcpOutput output = Mockito.mock(TcpOutput.class);
+		Game game = Mockito.mock(Game.class);
+		Data data = Mockito.mock(Data.class);
+		Player player = new Player(game, data, "black");
 		
-		Player player = new Player(output, input);
-		
-		player.set(new Game(19), Mockito.mock(Player.class), "Black");
-		
-		assertNotNull("Gracz nie ma gry", player.getGame());
-		assertEquals(player.color, "Black");
-	}
-	@Test
-	public void runTest() {
-		TcpInput input = Mockito.mock(TcpInput.class);
-		TcpOutput output = Mockito.mock(TcpOutput.class);
-		Player player = new Player(output, input);
-		player.set(new Game(19), Mockito.mock(Player.class), "Black");
-		Mockito.when(input.hasNextLine()).thenReturn(false);
-		Thread temp = new Thread(player);
-		temp.start();
-		
-		while(temp.isAlive()) {
-			
-		}
-		assertFalse("Watek dziala", temp.isAlive());
+		assertEquals(game, player.getGame());
+		assertEquals(data, player.data);
+		assertEquals("black", player.getColor());
 		
 	}
-
 }

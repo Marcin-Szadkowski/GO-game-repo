@@ -5,12 +5,12 @@ import gogame.server.game.Player;
 import gogame.server.lobby.Lobby;
 
 public class Data {
-	protected Game game;
-	protected Player player;
-	private Parser parser;
-	private Integer gameSize;
-	private String gameType;
-	protected String state; //To mozna zamienic na enum w przyszlosci
+	protected Game game = null;
+	public Player player = null;
+	private Parser parser = null;
+	private Integer gameSize = null;
+	private String gameType = null;
+	protected String state = null; //To mozna zamienic na enum w przyszlosci
 	
 	public Data(Parser parser) {
 		this.parser = parser;
@@ -18,14 +18,22 @@ public class Data {
 		Lobby.getInstance().addPlayer(this);
 	}
 	public Parser getParser() {
-		if(parser != null)
+		//f(parser != null)
 			return parser;
-		return null;
+		//return null;
 	}
-	protected void setGameSize(Integer size) {
+	public Player getPlayer() {
+		//if(player != null)
+			return player;
+		//return null;
+	}
+	public Game getGame() {
+		return game;
+	}
+	public void setGameSize(Integer size) {
 		this.gameSize = size;
 	}
-	protected void setGameType(String type) {
+	public void setGameType(String type) {
 		this.gameType = type;
 	}
 	public boolean isReady() {
@@ -44,11 +52,9 @@ public class Data {
 		return null;
 	}
 	public void addGame(Game game) {
-		if(game == null)
-			this.game = game;
+		this.game = game;
 	}
 	public void addPlayer(Player player) {
-		if(player == null)
 			this.player = player;
 	}
 }

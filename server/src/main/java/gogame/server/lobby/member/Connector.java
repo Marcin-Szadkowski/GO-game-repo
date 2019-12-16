@@ -20,22 +20,26 @@ public class Connector implements Runnable {
 	public Connector(Socket socket) {
 		this.socket = socket;
 	}
+	public Connector() {};
+	
 	public void run() {
 		//Ustaw potrzebne zmienne
 		setup();
-		
-			System.out.println("Watek zaczyna dzialanie");
+
 			String command;
 			//Nasluchuj przychodzacych wiadomosci
-			while(input.hasNextLine() && !Thread.currentThread().isInterrupted()) {
+			//Dodac ewentualnie warunek sprawdzajacy czy watkowi nie probuje przeszkodzic server, czyli probuje go wylaczyc
+			while(input.hasNextLine()) {
 				command = input.nextLine();
 				if(command.startsWith("QUIT")) {
 					//Sproboj wyslac wiadomosc do przeciwnika o opuszczeniu gry przez tego gracza
 					parser.interpret(command);
 					break;
 				}				
-				else
+				else {
 					parser.interpret(command);
+				}
+					
 			}
 			System.out.println("Watek przerwany\n");
 		
@@ -60,23 +64,8 @@ public class Connector implements Runnable {
 
 		
 	}
-	/**
-	 * Metoda nasluchujaca wiadomosci na Sockecie
-	 */
-	private void listen() {
-		String command;
-		while(input.hasNextLine()) {
-			command = input.nextLine();
-			if(command.startsWith("QUIT")) {
-				//Sproboj wyslac wiadomosc do przeciwnika o opuszczeniu gry przez tego gracza
-				parser.interpret(command);
-				return;
-			}				
-			else
-				parser.interpret(command);
-		}
-	}
-	protected void sendMsg(String msg) {
+
+	public void sendMsg(String msg) {
 		output.out(msg);
 	}
 	

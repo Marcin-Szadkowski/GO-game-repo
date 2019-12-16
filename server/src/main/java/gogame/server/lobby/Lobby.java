@@ -46,8 +46,7 @@ public class Lobby implements GamesHandler {
 				}	
 			}
 									
-		}
-		
+		}		
 	}
 	/**
 	 * Metoda porownojaca graczy oczekujacych na gre. 
@@ -55,13 +54,13 @@ public class Lobby implements GamesHandler {
 	 * @param data2 Drugi gracz
 	 * @return Gdy gracze ustawili takie same preferencje to metoda zwraca true
 	 */
-	private boolean comparePlayers(Data data1, Data data2) {
+	public boolean comparePlayers(Data data1, Data data2) {
 		System.out.println("Wywolano comparePlayers()");
 		if(data1.isReady() != true || data2.isReady() != true)
 			return false;
-		if(data1.getGameSize() != data2.getGameSize())
+		if(data1.getGameSize().intValue() != data2.getGameSize().intValue())
 			return false;
-		if(data1.getGameType() != "MULTI" || data2.getGameType() != "MULTI")
+		if( !data1.getGameType().equals("MULTI") || !data2.getGameType().equals("MULTI"))
 			return false;
 		return true;
 	}
@@ -87,9 +86,12 @@ public class Lobby implements GamesHandler {
 		
 		data1.addPlayer(player1);
 		data2.addPlayer(player2);
+		//data1.player = player1;
+		//data2.player = player2;
+		
 		//Usuwamy graczy z listy w lobby, poniewaz juz znalezli gre
 		deletePlayer(data1);
-		deletePlayer(data1);
+		deletePlayer(data2);
 	
 	}
 	public Integer howManyPlayers() {

@@ -9,7 +9,7 @@ public class ServerMain {
 		
 		Scanner input = new Scanner(System.in);
 		String command;
-		System.out.println("Type command: run, to run the server");
+		/*System.out.println("Type command: run, to run the server");
 		
 		while(input.hasNextLine()) {
 			command = input.next();
@@ -17,7 +17,11 @@ public class ServerMain {
 				serverThread.start();			
 				break;
 			}
-		}
+		}*/
+		
+		serverThread.start();
+		System.out.println("Server uruchomiony");
+		
 		while(input.hasNextLine()) {
 			command = input.next();
 			if(command.startsWith("stop")) {

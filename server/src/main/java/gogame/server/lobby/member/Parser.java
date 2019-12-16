@@ -1,5 +1,6 @@
 package gogame.server.lobby.member;
 
+import gogame.server.game.Player;
 import gogame.server.lobby.Lobby;
 
 /**
@@ -17,12 +18,17 @@ public class Parser {
 		this.connector = connector;
 		this.data = new Data(this);
 	}
+	public Parser() {};
+	
+	public Data getData() {
+		return data;
+	}
 	/**
 	 * Metoda odpowiadajac za interpretowanie polecen przychodzaych od Clienta
 	 * @param command polecenie od Clienta przechwycone przec Connector
 	 * @see Connector
 	 */
-	protected void interpret(String command) {
+	public void interpret(String command) {
 		String[] args;
 		if(command.startsWith("QUIT")) {
 			//Sproboj wyslac do przeciwnika OTHER_PLAYER_LEFT
@@ -43,10 +49,19 @@ public class Parser {
 		}else if(command.startsWith("MOVE")) {
 			//Tu wywolac Player.move(int x, int y)
 			//Pamietac o wylaczeniu tej funkcji zanim gra sie rozpoczela
+			System.out.println("MOVE "+ data.getPlayer().getColor());
 		}
 	}
-	public void gameStarted() {
-		String color =  data.player.getColor();
-		connector.sendMsg("GAME_STARTED " + color);
+	public void gameStarted(Player player) {	
+		System.out.println("Wowoluje gameStarted() z Parsera");
+	
+				//System.out.println("getPlayer() != null");
+				String color =  player.getColor();
+				if(color != null){
+					System.out.println("Wyslano game started z parsera");
+					connector.sendMsg("GAME_STARTED " + color);
+				}	
+																
+					
 	}
 }

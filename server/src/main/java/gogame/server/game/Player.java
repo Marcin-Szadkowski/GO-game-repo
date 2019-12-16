@@ -1,6 +1,6 @@
 package gogame.server.game;
 
-import gogame.server.lobby.member.Data;
+import gogame.server.lobby.member.*;
 
 public class Player {
 	String color;
@@ -13,8 +13,6 @@ public class Player {
 		this.data = data;
 	}
 
-
-	
 	public Game getGame() {
 		if(game != null)
 			return game;
@@ -24,6 +22,8 @@ public class Player {
 		return color;
 	}
 	public void gameStarted() {
-		data.getParser().gameStarted();
+		
+		data.getParser().gameStarted(this);
+		//System.out.println("game started z Player");
 	}	
 }

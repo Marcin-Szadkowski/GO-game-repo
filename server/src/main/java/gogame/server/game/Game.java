@@ -27,6 +27,7 @@ public class Game {
 	private void gameStarted() {
 		player1.gameStarted();
 		player2.gameStarted();
+		//System.out.println("GAME_STARTED z game");
 	}
 	
 }
