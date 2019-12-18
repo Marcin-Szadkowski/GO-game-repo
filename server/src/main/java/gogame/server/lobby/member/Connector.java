@@ -29,16 +29,19 @@ public class Connector implements Runnable {
 			String command;
 			//Nasluchuj przychodzacych wiadomosci
 			//Dodac ewentualnie warunek sprawdzajacy czy watkowi nie probuje przeszkodzic server, czyli probuje go wylaczyc
-			while(input.hasNextLine()) {
-				command = input.nextLine();
-				if(command.startsWith("QUIT")) {
-					//Sproboj wyslac wiadomosc do przeciwnika o opuszczeniu gry przez tego gracza
-					parser.interpret(command);
-					break;
-				}				
-				else {
-					parser.interpret(command);
-				}
+			while(input.hasNextLine() && !Thread.currentThread().isInterrupted()) {
+
+					command = input.nextLine();
+					if(command.startsWith("QUIT")) {
+						//Sproboj wyslac wiadomosc do przeciwnika o opuszczeniu gry przez tego gracza
+						parser.interpret(command);
+						break;
+					}				
+					else {
+						parser.interpret(command);
+					}
+				
+				
 					
 			}
 			System.out.println("Watek przerwany\n");

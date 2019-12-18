@@ -40,7 +40,7 @@ public class TcpInput implements Input {
 		}catch(IOException e) {}
 	}
 	/**
-	 * Metoda ustawiajaca wejscie stumienia danych 
+	 * Metoda ustawiajaca wejscie strumienia danych 
 	 * @throws IOException
 	 */
 	private void set() throws IOException {

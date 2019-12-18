@@ -21,7 +21,6 @@ public class TcpServer implements TransferProtocol {
 	private volatile static TcpServer instance;
 	private volatile boolean execute = true;
 	static ExecutorService pool;
-	
 	public void initialize() {
 				
 	}

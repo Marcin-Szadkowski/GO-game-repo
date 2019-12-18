@@ -31,8 +31,8 @@ public class Parser {
 	public void interpret(String command) {
 		String[] args;
 		if(command.startsWith("QUIT")) {
-			//Sproboj wyslac do przeciwnika OTHER_PLAYER_LEFT
-			//Pamietac aby sprawdzic czy wgl gra sie rozpoczela
+			if(data.getGame() != null)
+				data.getPlayer().quit();
 		}else if(command.startsWith("SIZE")) {
 			args = command.split(" ");
 			data.setGameSize(Integer.parseInt(args[1]));
@@ -44,24 +44,52 @@ public class Parser {
 			if(data.isReady())
 				Lobby.getInstance().findGame(data);
 		}else if(command.startsWith("PASS")) {
-			//Wyslac pass do Player -> gra
-			//Pamietac o wylaczeniu tej funkcji zanim gra sie rozpoczela
+			if(data.getGame() != null)
+				data.getPlayer().pass();
 		}else if(command.startsWith("MOVE")) {
-			//Tu wywolac Player.move(int x, int y)
-			//Pamietac o wylaczeniu tej funkcji zanim gra sie rozpoczela
-			System.out.println("MOVE "+ data.getPlayer().getColor());
+			if(data.getGame() != null) {
+				args = command.split(" ");
+				try {
+					int x, y;
+					x = Integer.parseInt(args[1]);
+					y = Integer.parseInt(args[2]);
+					data.getPlayer().move(x, y);
+				}catch(NumberFormatException e) {
+					//Nie rob nic
+				}
+			}
 		}
 	}
+	/**
+	 * Metoda wysylajaca informacje o ruchu przeciwnika
+	 * @param x
+	 * @param y
+	 */
+	public void opponentMoved(int x, int y) {
+		connector.sendMsg("OPPONENT_MOVED "+ x + " " + y);
+	}
+	/**
+	 * Metoda wysylajaca do clienta wiadomosc o niemoznosci wykonania ruchu
+	 */
+	public void notYourTurn() {
+		connector.sendMsg("NOT_YOUR_TURN");
+	}
+	/**
+	 * Metoda wysylajaca do clienta wiadomosc o wykonanym ruchu
+	 * @param x
+	 * @param y
+	 */
+	public void youMoved(int x, int y) {
+		connector.sendMsg("YOU_MOVED "+ x + " "+ y);
+	}	
+	/**
+	 * Metoda parsujaca funkcje gameStarted() na odpowiedni sygnal
+	 * ktory zostanie wyslany do serwera
+	 * @param player gracz, do ktorego ma zostal wyslany sygnal
+	 */
 	public void gameStarted(Player player) {	
-		System.out.println("Wowoluje gameStarted() z Parsera");
-	
-				//System.out.println("getPlayer() != null");
-				String color =  player.getColor();
-				if(color != null){
-					System.out.println("Wyslano game started z parsera");
-					connector.sendMsg("GAME_STARTED " + color);
-				}	
-																
-					
+		String color =  player.getColor();
+		if(color != null)
+			connector.sendMsg("GAME_STARTED " + color);																		
 	}
 }

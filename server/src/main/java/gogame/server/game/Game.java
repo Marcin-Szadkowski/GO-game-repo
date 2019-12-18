@@ -21,13 +21,57 @@ public class Game {
 		gameStarted();
 		
 	}
+	/**
+	 * Metoda wykonujaca ruch na planszy
+	 * @param x wspolrzedna x ruchu
+	 * @param y wspolrzedna y ruchu
+	 * @param player gracz wykonujacy ruch
+	 */
 	public synchronized void move(int x, int y, Player player) {
 		
 	}
+	/**
+	 * Metoda wysylajaca do odpowiedniego gracza wiadomsoc o ruchu przeciwnika
+	 * @param player ten gracz ma dostac informacje o ruchu przeciwnika
+	 * @param x
+	 * @param y 
+	 */
+	public void opponentMoved(Player player, int x, int y) {
+		
+	}
+	/**
+	 * Metoda wysylajaca do graczy informacje o rozpoczeciu gry
+	 * Wywolywana w Lobby po dolaczeniu graczy do gry
+	 */
 	private void gameStarted() {
 		player1.gameStarted();
 		player2.gameStarted();
-		//System.out.println("GAME_STARTED z game");
+	}
+	/**
+	 * Metoda informujaca gracza o poprawnie wykonanym ruchu
+	 * @param x
+	 * @param y
+	 * @see Player#youMoved(int, int)
+	 */
+	public void youMoved(Player player, int x, int y) {
+		player.youMoved(x, y);
+	}	
+	/**
+	 * Gracz pomija swoj ruch
+	 * @param player gracz pomijajacy ruch
+	 */
+	public void pass(Player player) {
+		//Sprawdzic czy to wgl kolej tego gracza na spasowanie
+		if(player == currentPlayer) {
+			
+		}
+	}
+	/**
+	 * Metoda wysylajaca do przeciwnika wiadomosc o odejsciu gracza
+	 * @param gracz, ktory opuszcza gre
+	 */
+	public void quit(Player player) {
+		//Sprobuj wyslac do graczy QUIT
 	}
 	
 }
