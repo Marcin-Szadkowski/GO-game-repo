@@ -75,6 +75,18 @@ public class Player {
 		game.pass(this);
 	}
 	/**
+	 * Metoda wywolywana, gdy gra sie zakonczy zwyciestwem gracza
+	 */
+	public void victory() {
+		//Tu wyslac info do clienta o zwyciestwie
+	}
+	/**
+	 * Metoda wywolywana, gdy gra zakonczy sie porazka gracza
+	 */
+	public void defeat() {
+		
+	}
+	/**
 	 * Metoda konczaca gre dla gracza
 	 * Wywolywana kiedy od danego Clienta przyjdzie sygnal o zakonczeniu gry
 	 */

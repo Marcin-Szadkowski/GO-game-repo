@@ -28,7 +28,18 @@ public class Game {
 	 * @param player gracz wykonujacy ruch
 	 */
 	public synchronized void move(int x, int y, Player player) {
-		
+		if(player == currentPlayer) {
+			player.youMoved(x, y);
+			if(player == player1) {
+				currentPlayer = player2;
+				player2.opponentMoved(x, y);
+			}else {
+				currentPlayer = player1;
+				player1.opponentMoved(x, y);
+			}
+		}else {
+			player.notYourTurn();
+		}
 	}
 	/**
 	 * Metoda wysylajaca do odpowiedniego gracza wiadomsoc o ruchu przeciwnika
@@ -37,8 +48,9 @@ public class Game {
 	 * @param y 
 	 */
 	public void opponentMoved(Player player, int x, int y) {
-		
+		player.opponentMoved(x, y);
 	}
+
 	/**
 	 * Metoda wysylajaca do graczy informacje o rozpoczeciu gry
 	 * Wywolywana w Lobby po dolaczeniu graczy do gry
@@ -46,6 +58,14 @@ public class Game {
 	private void gameStarted() {
 		player1.gameStarted();
 		player2.gameStarted();
+	}
+	/**
+	 * Metoda wysylajaca do gracza informacje o stanie wiezniow
+	 * @param x
+	 * @param y
+	 */
+	public void prisoners(int x, int y) {
+		//Wyslij do gracza info o stanie wiezniow
 	}
 	/**
 	 * Metoda informujaca gracza o poprawnie wykonanym ruchu
