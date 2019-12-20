@@ -8,6 +8,12 @@ import java.util.List;
 
 import org.junit.Test;
 
+/**
+ * Klasa testujaca GameMethods
+ * @see GameMethods
+ * @author marcin
+ *
+ */
 public class GameMethodsTest {
 
 	/*

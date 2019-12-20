@@ -4,6 +4,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+/**
+ * Klasa zawierajaca metody implementujaca algorytm DFS
+ * @author marcin
+ *
+ */
 public class GameMethods {
 	private static int[][] vectors = {{0,1}, {1,0}, {0,-1}, {-1,0}};
 	
