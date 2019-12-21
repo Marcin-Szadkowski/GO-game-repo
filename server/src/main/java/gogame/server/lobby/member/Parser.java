@@ -1,7 +1,12 @@
 package gogame.server.lobby.member;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import gogame.server.game.Player;
+import gogame.server.game.Stone;
 import gogame.server.lobby.Lobby;
+import gogame.server.game.Stone;
 
 /**
  * Klasa odpowiadajaca za parsowanie polecen przychodzacych od clienta oraz
@@ -61,6 +66,14 @@ public class Parser {
 		}
 	}
 	/**
+	 * Metoda wysylajaca do klienta informacje o wiezniach
+	 * @param x
+	 * @param y
+	 */
+	public void prisoners(int x, int y) {
+		connector.sendMsg("PRISONERS "+ x + " "+ y);
+	}
+	/**
 	 * Metoda wysylajaca informacje o ruchu przeciwnika
 	 * @param x
 	 * @param y
@@ -82,6 +95,20 @@ public class Parser {
 	public void youMoved(int x, int y) {
 		connector.sendMsg("YOU_MOVED "+ x + " "+ y);
 	}	
+	/**
+	 * Metoda wysylajaca do klienta informacje o bitych kamieniach
+	 * @param groups
+	 */
+	public void delete(List<LinkedList<Stone>> groups) {
+		//Tu przerobic bite kamienie na sygnal
+		String msg = "DELETE";
+		for(LinkedList<Stone> group: groups) {
+			for(Stone stone: group) {
+				msg = msg +" "+ stone.x + " " + stone.y;
+			}
+		}
+		connector.sendMsg(msg);
+	}
 	/**
 	 * Metoda parsujaca funkcje gameStarted() na odpowiedni sygnal
 	 * ktory zostanie wyslany do serwera

@@ -1,5 +1,8 @@
 package gogame.server.game;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import gogame.server.lobby.member.*;
 
 /**
@@ -13,7 +16,6 @@ public class Player {
 	
 	Game game;
 	Data data;
-	int prisoners;
 	
 	public Player(Game game, Data data, String color) {
 		this.game = game;
@@ -44,6 +46,14 @@ public class Player {
 		data.getParser().opponentMoved(x, y);
 	}
 	/**
+	 * Metoda wysylajaca info o wiezniach
+	 * @param x
+	 * @param y
+	 */
+	public void prisoners(int x, int y) {
+		
+	}
+	/**
 	 * Metoda przesylajaca do clienta informacje o niemożności wykonania ruchu
 	 * Wywolywana w Game, gdy gracz probuje wykonac ruch podczas nieswojej kolejki
 	 */
@@ -66,6 +76,9 @@ public class Player {
 	 */
 	public void youMoved(int x, int y) {
 		data.getParser().youMoved(x, y);
+	}
+	public void delete(List<LinkedList<Stone>> groups) {
+		
 	}
 	/**
 	 * Metoda wykonujaca ominiecie kolejki danego gracza

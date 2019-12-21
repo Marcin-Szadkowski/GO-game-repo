@@ -6,8 +6,8 @@ package gogame.server.game;
  *
  */
 public class Stone {
-	int x;
-	int y;
+	public int x;
+	public int y;
 	String color;
 	
 	public Stone(int x, int y, String color) {
