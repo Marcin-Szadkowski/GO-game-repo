@@ -8,14 +8,13 @@ public class Game {
 	public Stone[][] table;
 	public int whitePrisoners =0; //zbite biale kamienie
 	public int blackPrisoners =0; //zbite czarne kamienie
-	private Stone[] lastMoves;
+	private Stone lastBeat;
 	private Player playerBlack, playerWhite;
 	private Player currentPlayer;
 	
 	public Game(int size) {
 		this.size = size;
 		table = new Stone[size][size];
-		lastMoves = new Stone[2];
 	}
 	/**
 	 * Metoda przypisujaca graczy do powstalej gry
@@ -41,7 +40,7 @@ public class Game {
 		if(player == currentPlayer) {
 			//Sprawdzam czy wgl podane pole jest wolne
 			if(table[x][y] == null) {
-				List<LinkedList<Stone>> groupsToBeat = new LinkedList<LinkedList<Stone>>();
+				LinkedList<Stone> stonesToBeat = new LinkedList<Stone>();
 				//Dodaje tymczasowo ten kamien na plansze
 				Stone stone = new Stone(x, y, player.color);
 				table[x][y]= stone;
@@ -51,14 +50,30 @@ public class Game {
 					if(GameMethods.areDead(GameMethods.findGroups(stone, size, table), size, table) == true) {
 						//To wykonaj bicie
 						System.out.println("Wykonuje bicie");
-						 groupsToBeat = GameMethods.beatStones(GameMethods.findGroups(stone, size, table), this);
-					}
+						 stonesToBeat = GameMethods.beatStones(GameMethods.findGroups(stone, size, table), this);
+						 if(stonesToBeat.size() == 1)
+							 lastBeat = stonesToBeat.get(0);
+						 else
+							 lastBeat = null;
+					}else 
+						lastBeat =null;
 				} else {
 					//Jezeli grupa nie jest zywa to sprawdz czy mamy bicie(wtedy to nie ruch samobojczy)
 					if(GameMethods.areDead(GameMethods.findGroups(stone, size, table), size, table) == true) {
-						//To ruch jest ok. Wykonaj bicie martwej grupy
-						System.out.println("Ruch nie jest samobojczy bo wykonuje bicie");
-						groupsToBeat = GameMethods.beatStones(GameMethods.findGroups(stone, size, table), this);
+						//To ruch jest ok. Wykonaj bicie martwej grupy jesli to nie jest KO
+						if(lastBeat == null || lastBeat.x != x || lastBeat.y != y) {
+							System.out.println("Ruch nie jest samobojczy bo wykonuje bicie i to nie KO");
+							stonesToBeat = GameMethods.beatStones(GameMethods.findGroups(stone, size, table), this);
+							if(stonesToBeat.size() == 1)
+								lastBeat = stonesToBeat.get(0);
+							else
+								lastBeat = null;
+						}else {
+							//Ruch nie jest ok. Nie wykonuj ruchu. Usun ten kamien z planszy
+							table[x][y] = null;
+							return;
+						}
+						
 					}else {
 						//Ruch nie jest ok. Nie wykonuj ruchu. Usun ten kamien z planszy
 						table[x][y] = null;
@@ -75,8 +90,8 @@ public class Game {
 					currentPlayer = playerBlack;
 				}
 				//Wyslij info o kamieniach ktore trzeba usunac z planszy
-				if(!groupsToBeat.isEmpty()) {
-					this.delete(groupsToBeat);
+				if(!stonesToBeat.isEmpty()) {
+					this.delete(stonesToBeat);
 					//Wyslij infromacje o wiezniach
 					this.prisoners();
 				}
@@ -109,9 +124,9 @@ public class Game {
 	 * Metoda wysylajaca informacje o kamieniach do usuniecia z planszy
 	 * @param groups
 	 */
-	public void delete(List<LinkedList<Stone>> groups) {
-		playerBlack.delete(groups);
-		playerWhite.delete(groups);
+	public void delete(LinkedList<Stone> stones) {
+		playerBlack.delete(stones);
+		playerWhite.delete(stones);
 	}
 	/**
 	 * Metoda wysylajaca do gracza informacje o stanie wiezniow

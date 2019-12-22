@@ -70,13 +70,13 @@ public class GameMethods {
 	 * @param game
 	 * @return listy grup do zbicia
 	 */
-	public static List<LinkedList<Stone>> beatStones(List<LinkedList<Stone>> groups, Game game) {
-		List<LinkedList<Stone>> groupsToBeat = new LinkedList<LinkedList<Stone>>();
+	public static LinkedList<Stone> beatStones(List<LinkedList<Stone>> groups, Game game) {
+		LinkedList<Stone> stonesToBeat = new LinkedList<Stone>();
 		
 		for(LinkedList<Stone> group: groups) {
 			if(GameMethods.isAlive(group, game.size, game.table) == false) {
-				groupsToBeat.add(group);
 				for(Stone stone: group) {
+					stonesToBeat.add(stone);
 					game.table[stone.x][stone.y] = null;
 					if(stone.color.equals("white"))
 						game.whitePrisoners++;
@@ -85,7 +85,7 @@ public class GameMethods {
 				}
 			}				
 		}
-		return groupsToBeat;
+		return stonesToBeat;
 	}
 	/**
 	 * Funkcja sprawdzajaca czy podana grupa ma jakies oddechy
