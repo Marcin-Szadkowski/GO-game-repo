@@ -1,6 +1,7 @@
 package gogame.server.game;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class Bot implements Playable {
 	String color;
@@ -12,14 +13,12 @@ public class Bot implements Playable {
 	}
 	@Override
 	public Game getGame() {
-		// TODO Auto-generated method stub
-		return null;
+		return game;
 	}
 
 	@Override
 	public String getColor() {
-		// TODO Auto-generated method stub
-		return null;
+		return color;
 	}
 
 	@Override
@@ -32,6 +31,7 @@ public class Bot implements Playable {
 	public void opponentMoved(int x, int y) {
 		//Jak przeciwnik wykonal ruch to teraz twoja kolej
 		//wykonaj ruch
+		this.move(x, y);
 		
 	}
 
@@ -43,13 +43,34 @@ public class Bot implements Playable {
 
 	@Override
 	public void notYourTurn() {
-		// TODO Auto-generated method stub
+		System.out.println("NotYourTurn() z bota");
 		
 	}
-
+	
+	/**
+	 * Metoda wykonujaca ruch
+	 * Znajdz wszystkie grupy przeciwnika. Nastepnie wybierz te ktora ma najmniej oddechow.
+	 * Sprobuj przy niej postawic kamien. Jesli sie nie udalo to wybierz jakas inna grupe
+	 */
 	@Override
 	public void move(int x, int y) {
-		// TODO Auto-generated method stub
+		System.out.println("Wywolanie move() z bota");
+		int[] move;
+		List<LinkedList<Stone>> groups = BotMethods.findGroups(game);
+		LinkedList<Stone> weakGroup = BotMethods.findWeakGroup(groups, game);
+		move = BotMethods.choosePlace(weakGroup, game);
+		if(move != null) {
+			game.move(move[0], move[1], this);
+		}else {
+			for(LinkedList<Stone> group: groups) {
+				move = BotMethods.choosePlace(group, game);
+				if(move == null)
+					continue;
+				game.move(move[0], move[1], this);
+				System.out.println("Bot wyslal ruch do gry");
+				return;
+			}
+		}
 		
 	}
 

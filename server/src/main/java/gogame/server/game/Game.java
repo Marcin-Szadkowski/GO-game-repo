@@ -8,7 +8,7 @@ public class Game {
 	public Stone[][] table;
 	public int whitePrisoners =0; //zbite biale kamienie
 	public int blackPrisoners =0; //zbite czarne kamienie
-	private Stone lastBeat;
+	public Stone lastBeat;
 	private Playable playerBlack, playerWhite;
 	private Playable currentPlayer;
 	private int pass = 0; //Kiedy zmienna osiagnie wartosc 2 to gra sie konczy
@@ -86,12 +86,12 @@ public class Game {
 					pass =0;
 				//Wyslij teraz wiadomosci o zmianie stanu gry
 				this.youMoved(player, x, y);
-				if(player == playerBlack) {
-					this.opponentMoved(playerWhite, x, y);
+				if(player == playerBlack) {			
 					currentPlayer = playerWhite;
+					this.opponentMoved(playerWhite, x, y);
 				}else {
-					this.opponentMoved(playerBlack, x, y);
 					currentPlayer = playerBlack;
+					this.opponentMoved(playerBlack, x, y);
 				}
 				//Wyslij info o kamieniach ktore trzeba usunac z planszy
 				if(!stonesToBeat.isEmpty()) {
