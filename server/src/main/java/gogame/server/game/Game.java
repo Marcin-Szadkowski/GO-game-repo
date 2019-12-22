@@ -11,6 +11,7 @@ public class Game {
 	private Stone lastBeat;
 	private Player playerBlack, playerWhite;
 	private Player currentPlayer;
+	private int pass = 0; //Kiedy zmienna osiagnie wartosc 2 to gra sie konczy
 	
 	public Game(int size) {
 		this.size = size;
@@ -80,6 +81,9 @@ public class Game {
 						return;
 					}
 				}
+				//Wykonano porpawnie ruch, wiec mozna zmiejszyc wartosc pass
+				if(pass == 1)
+					pass =0;
 				//Wyslij teraz wiadomosci o zmianie stanu gry
 				this.youMoved(player, x, y);
 				if(player == playerBlack) {
@@ -100,6 +104,26 @@ public class Game {
 			
 		}else {
 			player.notYourTurn();
+		}
+	}
+	/**
+	 * Metoda podsumowujaca gre
+	 * Wywolywana gdy gracze spasuja po sobie
+	 */
+	public void summary() {
+		GameMethods.countTerritory(this);
+		//
+		if(blackPrisoners > whitePrisoners) {
+			//To wygral bialy bo ma wiecej wiezni+punktow
+			playerWhite.victory(blackPrisoners, whitePrisoners);
+			playerBlack.defeat(whitePrisoners, blackPrisoners);
+		}else if( whitePrisoners > blackPrisoners) {
+			//To wygral czarny
+			playerBlack.victory(whitePrisoners, blackPrisoners);
+			playerWhite.defeat(blackPrisoners, whitePrisoners);
+		}else if(whitePrisoners == blackPrisoners) {
+			playerBlack.tie(blackPrisoners);
+			playerWhite.tie(blackPrisoners);
 		}
 	}
 	/**
@@ -152,10 +176,18 @@ public class Game {
 	 * Gracz pomija swoj ruch
 	 * @param player gracz pomijajacy ruch
 	 */
-	public void pass(Player player) {
+	public synchronized void pass(Player player) {
 		//Sprawdzic czy to wgl kolej tego gracza na spasowanie
 		if(player == currentPlayer) {
-			
+			pass++;
+			if(pass == 2) {
+				this.summary();
+			}
+			//Zamien aktualnego gracza
+			if(player == playerBlack)
+				currentPlayer = playerWhite;
+			else
+				currentPlayer = playerBlack;			
 		}
 	}
 	/**

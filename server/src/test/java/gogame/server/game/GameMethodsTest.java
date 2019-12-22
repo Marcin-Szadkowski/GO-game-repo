@@ -16,7 +16,34 @@ import org.mockito.Mockito;
  *
  */
 public class GameMethodsTest {
+	@Test
+	public void countTerritoryTest() {
+		Game game = Mockito.mock(Game.class);
+		game.size = 9;
 		
+		Stone[][] table = new Stone[9][9];
+		game.table = table;
+		table[0][2] = new Stone(0,2,"black");
+		table[1][2] = new Stone(1,2,"black");
+		table[2][2] = new Stone(2, 2, "black");
+		table[2][1] = new Stone(2, 1, "black");
+		table[2][0] = new Stone(2, 0, "black");
+		
+		table[6][3] = new Stone(6,3,"white");
+		table[6][4] = new Stone(6,4,"white");
+		table[4][3] = new Stone(4,3,"white");
+		table[3][2] = new Stone(3,2,"white");
+		table[3][3] = new Stone(3,3,"white");
+				
+		table[5][6] = new Stone(5,6, "black");
+		table[5][4] = new Stone(5, 4, "black");
+		table[6][5] = new Stone(6, 5, "black");
+		table[4][5] = new Stone(4, 5, "black");
+		GameMethods.countTerritory(game);
+		
+		assertEquals(5, game.whitePrisoners);
+		assertEquals(0, game.blackPrisoners);
+	}
 	@Test
 	public void beatStones() {
 		Game game = Mockito.mock(Game.class);

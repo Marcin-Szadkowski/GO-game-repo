@@ -10,7 +10,7 @@ import gogame.server.lobby.member.*;
  * @author marcin
  *
  */
-public class Player {
+public class Player implements Playable {
 	//Kolor gracza
 	String color;
 	
@@ -77,6 +77,7 @@ public class Player {
 	public void youMoved(int x, int y) {
 		data.getParser().youMoved(x, y);
 	}
+	@Override
 	public void delete(LinkedList<Stone> stones) {
 		data.getParser().delete(stones);
 	}
@@ -89,15 +90,22 @@ public class Player {
 	}
 	/**
 	 * Metoda wywolywana, gdy gra sie zakonczy zwyciestwem gracza
+	 * @param x liczba zdobytych punktow
+	 * @param y liczba punktow przeciwnika
 	 */
-	public void victory() {
-		//Tu wyslac info do clienta o zwyciestwie
+	public void victory(int x, int y) {
+		data.getParser().victory(x, y);
 	}
 	/**
 	 * Metoda wywolywana, gdy gra zakonczy sie porazka gracza
+	 * @param x liczba zdobytych punktow
+	 * @param y liczba punktow przeciwnika
 	 */
-	public void defeat() {
-		
+	public void defeat(int x, int y) {
+		data.getParser().defeat(x, y);
+	}
+	public void tie(int x) {
+		data.getParser().tie(x);
 	}
 	/**
 	 * Metoda konczaca gre dla gracza
@@ -106,4 +114,5 @@ public class Player {
 	public void quit() {
 		game.quit(this);
 	}
+
 }
