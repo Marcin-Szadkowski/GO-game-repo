@@ -1,5 +1,10 @@
 package gogame.client.transProtocol;
 
+/**
+ * Interface implementuj¹cy metody do kontaktu z serwerem
+ * @author wojciech
+ *
+ */
 public interface TransferProtocol {
 	/*
 	 * Initialize connection 
@@ -14,10 +19,7 @@ public interface TransferProtocol {
 	 */
 	public String recvMessage();
 	
-//	public static TransferProtocol getInstance() {
-		// TODO Auto-generated method stub
-	//	return null;
-//	}
+
 	public boolean hasNextLine();
 	
 	public void stop();

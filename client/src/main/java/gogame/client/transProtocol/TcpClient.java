@@ -6,15 +6,14 @@ import java.net.Socket;
 import java.util.Scanner;
 
 import gogame.client.connection.DataParser;
-import gogame.client.game.Game;
 import gogame.client.gui.GameGui;
 
 
 /**
  * Klasa implementujaca wzorzec singleton
- * W bloku dzialania klienta pobrac instancje klasy
+ * Za pomocą instancji klasy przekazywane sa informacje pomiędzy klientem a serwerem
  * Polaczenie z serwerem jest inicjalizowane dopiero przez wywolanie metody initialize()
- * @author marcin
+ * @author wojciech
  *
  */
 public class TcpClient implements TransferProtocol {
@@ -51,7 +50,7 @@ public class TcpClient implements TransferProtocol {
 		}	
 	}
 	/**
-	 * Kiedy chcesz wyslac wiadomosc na serwer uzyj tej metody mordeczko
+	 * Metoda przez którą wysyłamy informacje do serwera
 	 */
 	public void sendMessage(String message) {
 		output.println(message);	
@@ -71,7 +70,7 @@ public class TcpClient implements TransferProtocol {
 	/**
 	 * Ta metoda jest dodana po to zeby ulatwic dzialanie Clienta
 	 * Dzieki niej mozesz dac warunek zeby nasluchiwac danych z serwera dopoki to prawda
-	 * Obaczaj TicTacToeClient metoda play()
+	 * 
 	 */
 	public boolean hasNextLine() {
 		if(input == null)
@@ -82,8 +81,6 @@ public class TcpClient implements TransferProtocol {
 	}
 	/**
 	 * To jest dodane zeby zamknac socket na koniec dzialania klienta
-	 * Co prawda gdzies tam pisza ze java moze robic to sama bla bla ale dobrze to wywolac
-	 * Wywolac kiedy np. Client dostal info od serwera ze gra skonczona, no to wtedy elo zamykamy wszystko
 	 */
 	public void stop() {
 		sendMessage("QUIT");
@@ -99,10 +96,15 @@ public class TcpClient implements TransferProtocol {
 		else return false;
 		
 	}
+	/**
+	 * Metoda odpowiedzialna za nasłuchiwanie informacji od serwera.
+	 * W momencie rozpoczęcia gry generuje planszę .
+	 * 
+	 * @throws Exception
+	 */
 	public void listen() throws Exception{
 	    try {
 	    	System.out.println("listen");
-	    	//client = new TcpClient();
 	    	initialize();		
 	    	String response;
 	    	DataParser parser = new DataParser();
@@ -110,18 +112,13 @@ public class TcpClient implements TransferProtocol {
 	    	
 	    if(socket.isConnected()) {
 		    	  parser.receiveConnected();
-		    	//  connected=true;  
-		    	  //GameGui game = new GameGui();
-		    	 // game.inicialize();
-		    	 // game.createBoard();
+		    	
 		    	  System.out.println("connected");
 		    	  GameGui game = new GameGui();
 		    	  game.inicialize();
 		    	  
 		      }
-		     
-	    	
-	    	
+		
 	    	while(hasNextLine()){
 	    		 response=recvMessage();
 	    		 System.out.println("przesyłam do command interpeter" + response);
@@ -130,13 +127,13 @@ public class TcpClient implements TransferProtocol {
 	   }stop();   		
 	 }
 	
-	    catch (Exception e){e.printStackTrace();}
+	 catch (Exception e){e.printStackTrace();}
 	    
-		finally {
-			stop();	
+     finally {
+	stop();	
 		    		
-		    	}	 
-		  }
+		   }	 
+   }
 	
 	
 }

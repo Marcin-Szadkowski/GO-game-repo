@@ -174,4 +174,69 @@ public class GameMethods {
 		
 		return groups;
 	}
+	/**
+	 * Metoda obliczajaca terytorium dla graczy na danej planszy
+	 * @param game
+	 */
+	public static void countTerritory(Game game) {
+		int blackTerritory = 0;
+		int whiteTerritory = 0;
+		Stone[][] table = game.table;
+		boolean[][] visited = new boolean[game.size][game.size];
+		Queue<int[]> stos = new LinkedList<int[]>();
+		String color= "";
+		int change=0;
+		int count = 0;
+		
+		//Zaczynam liczenie od punktu w lewym gornym rogu
+		for(int i=0; i< game.size; i++) {
+			for(int j=0; j< game.size; j++) {
+				if(table[i][j] != null || visited[i][j] == true)
+					continue;
+				change = 0;
+				count=0;
+				color = "";
+				stos.add(new int[] {i, j});//Umieszczam na stosie wierzcholek startowy	
+				count++;
+				visited[i][j] = true;
+				while(!stos.isEmpty()) {
+					int[] v = stos.poll();//Pobieram wierzcholek ze stosu
+				
+					for(int[] vector: vectors) {
+						int X = v[0] + vector[0];
+						int Y = v[1] + vector[1];
+						
+						if(X < 0 || X >= game.size || Y < 0 || Y>= game.size)
+							continue;
+						if(visited[X][Y] == true)
+							continue;
+						if(table[X][Y] == null) {
+							stos.add(new int[] {X, Y});
+							visited[X][Y] = true; //jako visited oznaczam tylko wolne oddechy
+							count++;
+						}else {
+							if(change == 0) {
+								color = table[X][Y].color;
+								change++;								
+							}else {
+								if(!table[X][Y].color.equals(color))
+									change++;
+							}
+						}						
+					}
+				}//Jezeli change jest rowna 1 to znaczy, ze na brzegach jest tylko jeden kolor
+				if(change == 1) {
+					System.out.println("Dla wierzcholka: "+ i + " "+ j+" dodaje: "+ count);
+					//To znaczy ze, ze mamy poprawnie otoczony teren
+					if(color.equals("white"))
+						whiteTerritory += count;
+					else
+						blackTerritory += count;
+				}
+			}
+		}
+		//Dodajemy terytorium bialego do zbitych czarnych, bo to suma jego punktow i vice versa
+		game.blackPrisoners += whiteTerritory;
+		game.whitePrisoners += blackTerritory;
+	}
 }

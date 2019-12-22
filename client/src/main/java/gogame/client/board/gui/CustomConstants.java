@@ -1,9 +1,23 @@
 package gogame.client.board.gui;
-
+/**
+ * Klasa zawieraj¹ca sta³e dla gry na poziomie GUI
+ * @author wojciech
+ *
+ */
 public class CustomConstants {
-  public static int marginLeft = 100;
-  public static int pawnDiameter =24;
-  public static int squareSideLength =24;
-  public static int shiftWidth=7;
-  public static int shiftHeight =30;
+ /**
+  * przesuniecie panelu rysowania
+  */
+  public  int marginLeft = 100;
+  /**
+   * srednia dla stone'a
+   */
+  public  int pawnDiameter =24;
+  /**
+   * dlugosc boku kwadratu detekcyjnego
+   */
+  public  int squareSideLength =24;
+
+  public  int shiftWidth=7;
+  public  int shiftHeight =30;
 }

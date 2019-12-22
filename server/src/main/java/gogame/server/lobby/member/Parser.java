@@ -110,6 +110,29 @@ public class Parser {
 		connector.sendMsg(msg);
 	}
 	/**
+	 * Metoda wysylajaca wiadomosc o zwyciestwie
+	 * @param x punkty gracza	
+	 * @param y punkty przeciwnika
+	 */
+	public void victory(int x, int y) {
+		connector.sendMsg("VICTORY "+ x + " "+ y);
+	}
+	/**
+	 * Metoda wysylajaca wiadomosc o przegranej
+	 * @param x punkty gracza
+	 * @param y punkty przeciwnika
+	 */
+	public void defeat(int x, int y) {
+		connector.sendMsg("DEFEAT "+ x + " "+ y);
+	}
+	/**
+	 * Metoda wysylajaca wiadomosc o remisie
+	 * @param x punkty graczy
+	 */
+	public void tie(int x) {
+		connector.sendMsg("TIE "+ x);
+	}
+	/**
 	 * Metoda parsujaca funkcje gameStarted() na odpowiedni sygnal
 	 * ktory zostanie wyslany do serwera
 	 * @param player gracz, do ktorego ma zostal wyslany sygnal

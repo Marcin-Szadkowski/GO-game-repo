@@ -1,7 +1,14 @@
 package gogame.client.board;
 
+/**
+ * Klasa implementuj¹ca interace Board 
+ * odpowiedzialna za charakterystychê planszy dla gry w konsoli
+ * @author wojciech
+ *
+ */
 public class BoardConsole implements Board {
     public static int size;
+    
 	public BoardConsole(int type) {
 		if(type == 9) {
 			size = 9;

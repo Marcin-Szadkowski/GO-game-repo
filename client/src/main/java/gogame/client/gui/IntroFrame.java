@@ -6,16 +6,14 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
-import gogame.client.pawn.PawnPanel;
-
+/**
+ * Klasa zawieraj¹ca metody parametryzuj¹ce stan szukanej rozgrywki
+ * @author wojciech
+ *
+ */
 public class IntroFrame  extends JFrame{
-
 	
-		
-		
 	
 	static JFrame introFrame;
     JButton buttonFindGame,buttonSize9,buttonSize13,
@@ -26,7 +24,9 @@ public class IntroFrame  extends JFrame{
     public volatile static boolean singlePlayer=false,multiPlayer=false,findGame,chosen=false;
     public static String gameType="MULTI";
     
-    
+  /**
+   * Metoda tworz¹ca obiekt typu Jframe na którym gracz wybiera parammetry gry które go interesuj¹
+   */
 	 public void openingFrame() {
 	    	
 	    	
@@ -53,7 +53,8 @@ public class IntroFrame  extends JFrame{
 		     introFrame.add(buttonGameSingle);
 		     introFrame.setVisible(true);
 		     
-	 buttonSize9.addActionListener(new ActionListener() {
+		    // obs³uga zdarzeñ onClick dla buttonów
+	        buttonSize9.addActionListener(new ActionListener() {
 	             
 	             public void actionPerformed(ActionEvent e) {
 	            	 
@@ -110,8 +111,11 @@ public class IntroFrame  extends JFrame{
 		     
 	    	
 	    } 
-	 
-	// -----------------------------------------------------------------------------------metody
+	 //------------------------------------------------------------------------------------------------------
+     /**
+      * Metoda boolowska, która zwraca true gdy gracz wybierze parametry gry
+      * @return
+      */
 	 public boolean gameChosen() {
 			if((size!=0) && findGame==true && ((singlePlayer==true) || (multiPlayer==true))) {return true;}
 	    return false;

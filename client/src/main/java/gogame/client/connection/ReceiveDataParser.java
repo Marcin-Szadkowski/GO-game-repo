@@ -1,5 +1,12 @@
 package gogame.client.connection;
 
+/**
+ * Interface implementuj¹ce metody obslugujace
+ * otrzymywanie oraz interpretowanie informacji
+ * wys³anych z serwera
+ * @author wojciech
+ *
+ */
 public interface ReceiveDataParser {
 	public void receiveYouMoved(String s);
 	public void receiveOponentMoved(String s);

@@ -2,6 +2,7 @@ package gogame.client.gui;
 
 import java.awt.Graphics;
 
+
 public class ClickAreaSquare {
 
 	private int x;

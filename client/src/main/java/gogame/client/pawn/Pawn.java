@@ -3,6 +3,11 @@ package gogame.client.pawn;
 import java.awt.Color;
 import java.awt.Graphics;
 
+/**
+ * Klasa opisuj¹ca obiekt, który w grze bêdzie wykorzystywany jako pionek (stone)
+ * @author User
+ *
+ */
 public class Pawn {
 
 	private int x;
