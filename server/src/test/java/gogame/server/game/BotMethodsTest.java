@@ -42,7 +42,7 @@ public class BotMethodsTest {
 		table[4][5] = new Stone(4, 5, "black");
 		table[3][4] = new Stone(3, 4, "black");
 		
-		List<LinkedList<Stone>> groups = BotMethods.findGroups(game);
+		List<LinkedList<Stone>> groups = BotMethods.findGroups(game, "black");
 		assertEquals(4, groups.size());
 		
 		LinkedList<Stone> weakGroup = BotMethods.findWeakGroup(groups, game);

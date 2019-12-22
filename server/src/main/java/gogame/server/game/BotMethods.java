@@ -12,7 +12,12 @@ import java.util.Queue;
 public class BotMethods {
 	private static int[][] vectors = {{0,1}, {1,0}, {0,-1}, {-1,0}};
 	
-	
+	/**
+	 * Metoda zwracajaca grupe kamieni o najmniejszej liczbie oddechow
+	 * @param groups
+	 * @param game
+	 * @return
+	 */
 	public static LinkedList<Stone> findWeakGroup(List<LinkedList<Stone>> groups, Game game){
 		LinkedList<Stone> weakGroup = new LinkedList<Stone>();
 		int min = countBreaths(groups.get(0), game);
@@ -54,7 +59,7 @@ public class BotMethods {
 					//Trzeba by sprawdzic czy to nie ruch samobojczy oraz czy to nie KO
 					considered[X][Y] = true;
 					Stone stone2 = new Stone(X, Y, "white");
-					//Mam grupe, ktora powstanie po postawieniu tam kamienai przez bota
+					//Mam grupe, ktora powstanie po postawieniu tam kamienia przez bota
 					if(game.lastBeat != null)
 						if(game.lastBeat.x == X && game.lastBeat.y == Y)
 							continue;
@@ -91,6 +96,12 @@ public class BotMethods {
 		}
 		return false;
 	}
+	/**
+	 * Metoda liczaca oddechy podanej grupy
+	 * @param group
+	 * @param game
+	 * @return liczba oddechow grupy
+	 */
 	public static int countBreaths(LinkedList<Stone> group, Game game) {
 		int size = game.size;
 		Stone[][] table = game.table;
@@ -116,13 +127,13 @@ public class BotMethods {
 		return breaths;
 	}
 	/**
-	 * Metoda znajdujaca slaba grupe przeciwnika
+	 * Metoda znajdujaca wszystkie grupy o podanym kolorze
 	 * @param game
-	 * @return slaba grupa przeciwnika
+	 * @param color kolor szukanej grupy
+	 * @return grupy o podanym kolorze
 	 */
-	public static List<LinkedList<Stone>> findGroups(Game game){
+	public static List<LinkedList<Stone>> findGroups(Game game, String color){
 		int size = game.size;
-		String color = "black";
 		Stone[][] table = game.table;
 		
 		List<LinkedList<Stone>> groups = new LinkedList<LinkedList<Stone>>(); //Grupy wynikowe
@@ -167,11 +178,25 @@ public class BotMethods {
 						}			
 					}
 					if(!group.isEmpty())
-						groups.add(group);
-					
+						groups.add(group);				
 				}
 			}
 		}
 		return groups;
+	}
+	/**
+	 * Metoda sprawdzajaca czy tablica jest pusta
+	 * @param table
+	 * @param size
+	 * @return
+	 */
+	public static boolean isEmpty(Stone[][] table, int size) {
+		for(int i=0; i<size; i++) {
+			for(int j =0; j<size; j++) {
+				if(table[i][j] != null)
+					return false;
+			}
+		}
+		return true;
 	}
 }

@@ -1,7 +1,7 @@
 package gogame.server.game;
 
 /**
- * Klasa reprezentujaca kamien
+ * Klasa reprezentujaca kamien na planszy
  * @author marcin
  *
  */
