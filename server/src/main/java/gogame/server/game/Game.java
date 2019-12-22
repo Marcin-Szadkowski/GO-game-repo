@@ -9,8 +9,8 @@ public class Game {
 	public int whitePrisoners =0; //zbite biale kamienie
 	public int blackPrisoners =0; //zbite czarne kamienie
 	private Stone lastBeat;
-	private Player playerBlack, playerWhite;
-	private Player currentPlayer;
+	private Playable playerBlack, playerWhite;
+	private Playable currentPlayer;
 	private int pass = 0; //Kiedy zmienna osiagnie wartosc 2 to gra sie konczy
 	
 	public Game(int size) {
@@ -23,7 +23,7 @@ public class Game {
 	 * @param player1
 	 * @param player2
 	 */
-	public void setup(Player player1, Player player2) {
+	public void setup(Playable player1, Playable player2) {
 		currentPlayer = player1;
 		this.playerBlack = player1;
 		this.playerWhite = player2;
@@ -36,14 +36,14 @@ public class Game {
 	 * @param y wspolrzedna y ruchu
 	 * @param player gracz wykonujacy ruch
 	 */
-	public synchronized void move(int x, int y, Player player) {
+	public synchronized void move(int x, int y, Playable player) {
 		//Sprawdzam czy to kolej tego gracza
 		if(player == currentPlayer) {
 			//Sprawdzam czy wgl podane pole jest wolne
 			if(table[x][y] == null) {
 				LinkedList<Stone> stonesToBeat = new LinkedList<Stone>();
 				//Dodaje tymczasowo ten kamien na plansze
-				Stone stone = new Stone(x, y, player.color);
+				Stone stone = new Stone(x, y, player.getColor());
 				table[x][y]= stone;
 
 				if(GameMethods.isAlive(GameMethods.findGroup(stone, size, table), size, table) == true) {
@@ -132,7 +132,7 @@ public class Game {
 	 * @param x
 	 * @param y 
 	 */
-	public void opponentMoved(Player player, int x, int y) {
+	public void opponentMoved(Playable player, int x, int y) {
 		player.opponentMoved(x, y);
 	}
 
@@ -169,14 +169,14 @@ public class Game {
 	 * @param y
 	 * @see Player#youMoved(int, int)
 	 */
-	public void youMoved(Player player, int x, int y) {
+	public void youMoved(Playable player, int x, int y) {
 		player.youMoved(x, y);
 	}	
 	/**
 	 * Gracz pomija swoj ruch
 	 * @param player gracz pomijajacy ruch
 	 */
-	public synchronized void pass(Player player) {
+	public synchronized void pass(Playable player) {
 		//Sprawdzic czy to wgl kolej tego gracza na spasowanie
 		if(player == currentPlayer) {
 			pass++;
@@ -194,8 +194,11 @@ public class Game {
 	 * Metoda wysylajaca do przeciwnika wiadomosc o odejsciu gracza
 	 * @param gracz, ktory opuszcza gre
 	 */
-	public void quit(Player player) {
+	public void quit(Playable player) {
 		//Sprobuj wyslac do graczy QUIT
-	}
-	
+		if(player == playerBlack)
+			playerWhite.otherPlayerLeft();
+		else
+			playerBlack.otherPlayerLeft();
+	}	
 }

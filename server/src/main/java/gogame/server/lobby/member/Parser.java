@@ -116,6 +116,8 @@ public class Parser {
 	 */
 	public void victory(int x, int y) {
 		connector.sendMsg("VICTORY "+ x + " "+ y);
+		data.game = null;
+		data.player = null;
 	}
 	/**
 	 * Metoda wysylajaca wiadomosc o przegranej
@@ -124,6 +126,8 @@ public class Parser {
 	 */
 	public void defeat(int x, int y) {
 		connector.sendMsg("DEFEAT "+ x + " "+ y);
+		data.game = null;
+		data.player = null;
 	}
 	/**
 	 * Metoda wysylajaca wiadomosc o remisie
@@ -131,6 +135,8 @@ public class Parser {
 	 */
 	public void tie(int x) {
 		connector.sendMsg("TIE "+ x);
+		data.game = null;
+		data.player = null;
 	}
 	/**
 	 * Metoda parsujaca funkcje gameStarted() na odpowiedni sygnal
@@ -141,5 +147,10 @@ public class Parser {
 		String color =  player.getColor();
 		if(color != null)
 			connector.sendMsg("GAME_STARTED " + color);																		
+	}
+	public void otherPlayerLeft() {
+		connector.sendMsg("OTHER_PLAYER_LEFT");
+		data.game = null;
+		data.player = null;
 	}
 }

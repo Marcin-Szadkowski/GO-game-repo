@@ -114,5 +114,8 @@ public class Player implements Playable {
 	public void quit() {
 		game.quit(this);
 	}
+	public void otherPlayerLeft() {
+		data.getParser().otherPlayerLeft();
+	}
 
 }

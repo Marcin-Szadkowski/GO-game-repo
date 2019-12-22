@@ -18,4 +18,5 @@ public interface Playable {
 		public void defeat(int x, int y);
 		public void tie(int x);
 		public void quit();
+		public void otherPlayerLeft();
 }

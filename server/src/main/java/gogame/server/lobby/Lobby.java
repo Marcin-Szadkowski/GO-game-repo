@@ -2,6 +2,8 @@ package gogame.server.lobby;
 
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
+
+import gogame.server.game.Bot;
 import gogame.server.game.Game;
 import gogame.server.game.Player;
 import gogame.server.lobby.member.Data;
@@ -34,6 +36,10 @@ public class Lobby implements GamesHandler {
 	public synchronized void  findGame(Data data) {
 		System.out.println("Wywolano findGame()");
 		//W tym momencie mozna sprawdzic czy gracz szuka MULTI czy SINGLE
+		if(data.getGameType().equals("SINGLE")) {
+			prepareSingle(data);
+			return;
+		}
 		//Jak single to daj mu od razu bota, a jak MULTI to rob to co ponizej
 		int gracze = players.size();
 		int indeks = players.indexOf(data);
@@ -93,6 +99,21 @@ public class Lobby implements GamesHandler {
 		deletePlayer(data1);
 		deletePlayer(data2);
 	
+	}
+	/**
+	 * Metoda przygotowujaca graczowi gre z botem
+	 * @param player
+	 */
+	public void prepareSingle(Data data) {
+		Game game = new Game(data.getGameSize());
+		data.addGame(game);
+		Player player = new Player(game, data, "black");
+		Bot bot = new Bot(game, "white");
+		game.setup(player, bot);
+		data.addPlayer(player);
+		
+		deletePlayer(data);
+		
 	}
 	public Integer howManyPlayers() {
 		return players.size();

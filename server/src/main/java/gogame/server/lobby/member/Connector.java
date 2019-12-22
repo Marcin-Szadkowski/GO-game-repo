@@ -67,7 +67,10 @@ public class Connector implements Runnable {
 
 		
 	}
-
+	/**
+	 * Metoda przesylajaca wiadomosc przez socket
+	 * @param msg
+	 */
 	public void sendMsg(String msg) {
 		output.out(msg);
 	}
