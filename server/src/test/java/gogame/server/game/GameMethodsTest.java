@@ -16,7 +16,7 @@ import org.mockito.Mockito;
  *
  */
 public class GameMethodsTest {
-	
+		
 	@Test
 	public void beatStones() {
 		Game game = Mockito.mock(Game.class);
@@ -36,12 +36,11 @@ public class GameMethodsTest {
 		
 		assertEquals(1, groups.size());
 		
-		List<LinkedList<Stone>> groupsToBeat = new LinkedList<LinkedList<Stone>>();
-		groupsToBeat = GameMethods.beatStones(groups, game);
+		LinkedList<Stone> stonesToBeat = new LinkedList<Stone>();
+		stonesToBeat = GameMethods.beatStones(groups, game);
 		
-		assertEquals(1, groupsToBeat.size());
-		assertEquals(1, groupsToBeat.get(0).size());
-		System.out.println("Zbity kamien: "+ groupsToBeat.get(0).get(0).x+ " "+ groupsToBeat.get(0).get(0).y);
+		assertEquals(1, stonesToBeat.size());
+		System.out.println("Zbity kamien: "+ stonesToBeat.get(0).x+ " "+ stonesToBeat.get(0).y);
 		assertNull(table[0][0]);
 		assertEquals(1, game.blackPrisoners);
 		assertEquals(0, game.whitePrisoners);

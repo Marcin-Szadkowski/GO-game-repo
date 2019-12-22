@@ -99,15 +99,14 @@ public class Parser {
 	 * Metoda wysylajaca do klienta informacje o bitych kamieniach
 	 * @param groups
 	 */
-	public void delete(List<LinkedList<Stone>> groups) {
+	public void delete(LinkedList<Stone> stones) {
 		//Tu przerobic bite kamienie na sygnal
 		System.out.println("Wywoluje delete() z parsera");
 		String msg = "DELETE";
-		for(LinkedList<Stone> group: groups) {
-			for(Stone stone: group) {
+		
+		for(Stone stone: stones) {
 				msg = msg +" "+ stone.x + " " + stone.y;
-			}
-		}
+		}		
 		connector.sendMsg(msg);
 	}
 	/**

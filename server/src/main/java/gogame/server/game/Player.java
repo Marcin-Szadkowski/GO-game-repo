@@ -77,8 +77,8 @@ public class Player {
 	public void youMoved(int x, int y) {
 		data.getParser().youMoved(x, y);
 	}
-	public void delete(List<LinkedList<Stone>> groups) {
-		data.getParser().delete(groups);
+	public void delete(LinkedList<Stone> stones) {
+		data.getParser().delete(stones);
 	}
 	/**
 	 * Metoda wykonujaca ominiecie kolejki danego gracza
