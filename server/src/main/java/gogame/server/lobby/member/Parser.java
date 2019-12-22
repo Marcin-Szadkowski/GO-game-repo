@@ -101,6 +101,7 @@ public class Parser {
 	 */
 	public void delete(List<LinkedList<Stone>> groups) {
 		//Tu przerobic bite kamienie na sygnal
+		System.out.println("Wywoluje delete() z parsera");
 		String msg = "DELETE";
 		for(LinkedList<Stone> group: groups) {
 			for(Stone stone: group) {

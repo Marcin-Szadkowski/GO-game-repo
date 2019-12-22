@@ -7,6 +7,7 @@ import java.util.List;
 
 
 import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
  * Klasa testujaca GameMethods
@@ -16,9 +17,42 @@ import org.junit.Test;
  */
 public class GameMethodsTest {
 	
-	
 	@Test
-	public void areAliveTest() {
+	public void beatStones() {
+		Game game = Mockito.mock(Game.class);
+		Stone stone1= new Stone(1, 0, "white");
+		Stone[][] table = new Stone[9][9];
+		table[1][0] = stone1;
+		table[0][0] = new Stone(0,0, "black");
+		table[0][1] = new Stone(0,1, "white");
+		game.table = table;
+		game.size = 9;
+		game.whitePrisoners =0;
+		game.blackPrisoners = 0;
+		
+		
+		List<LinkedList<Stone>> groups = new LinkedList<LinkedList<Stone>>();
+		groups = GameMethods.findGroups(stone1, 9, table);
+		
+		assertEquals(1, groups.size());
+		
+		List<LinkedList<Stone>> groupsToBeat = new LinkedList<LinkedList<Stone>>();
+		groupsToBeat = GameMethods.beatStones(groups, game);
+		
+		assertEquals(1, groupsToBeat.size());
+		assertEquals(1, groupsToBeat.get(0).size());
+		System.out.println("Zbity kamien: "+ groupsToBeat.get(0).get(0).x+ " "+ groupsToBeat.get(0).get(0).y);
+		assertNull(table[0][0]);
+		assertEquals(1, game.blackPrisoners);
+		assertEquals(0, game.whitePrisoners);
+		
+	}
+	/**
+	 * Test metody areDead
+	 * @see GameMethods#areDead(List, int, Stone[][])
+	 */
+	@Test
+	public void areDeadTest() {
 		Stone stone1 = new Stone(5, 3, "black");
 		Stone[][] table = new Stone[9][9];
 		table[5][3] = stone1;

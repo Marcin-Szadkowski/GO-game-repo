@@ -50,12 +50,14 @@ public class Game {
 					//Jezeli grupa jest zywa, to ok, sprawdz czy mamy bicie	
 					if(GameMethods.areDead(GameMethods.findGroups(stone, size, table), size, table) == true) {
 						//To wykonaj bicie
+						System.out.println("Wykonuje bicie");
 						 groupsToBeat = GameMethods.beatStones(GameMethods.findGroups(stone, size, table), this);
 					}
 				} else {
 					//Jezeli grupa nie jest zywa to sprawdz czy mamy bicie(wtedy to nie ruch samobojczy)
 					if(GameMethods.areDead(GameMethods.findGroups(stone, size, table), size, table) == true) {
 						//To ruch jest ok. Wykonaj bicie martwej grupy
+						System.out.println("Ruch nie jest samobojczy bo wykonuje bicie");
 						groupsToBeat = GameMethods.beatStones(GameMethods.findGroups(stone, size, table), this);
 					}else {
 						//Ruch nie jest ok. Nie wykonuj ruchu. Usun ten kamien z planszy
@@ -73,10 +75,12 @@ public class Game {
 					currentPlayer = playerBlack;
 				}
 				//Wyslij info o kamieniach ktore trzeba usunac z planszy
-				if(!groupsToBeat.isEmpty())
+				if(!groupsToBeat.isEmpty()) {
 					this.delete(groupsToBeat);
-				//Wyslij infromacje o wiezniach
-				this.prisoners();
+					//Wyslij infromacje o wiezniach
+					this.prisoners();
+				}
+					
 			}
 			
 		}else {

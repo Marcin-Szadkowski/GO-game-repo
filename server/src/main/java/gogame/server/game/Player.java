@@ -51,7 +51,7 @@ public class Player {
 	 * @param y
 	 */
 	public void prisoners(int x, int y) {
-		
+		data.getParser().prisoners(x, y);
 	}
 	/**
 	 * Metoda przesylajaca do clienta informacje o niemożności wykonania ruchu
@@ -78,7 +78,7 @@ public class Player {
 		data.getParser().youMoved(x, y);
 	}
 	public void delete(List<LinkedList<Stone>> groups) {
-		
+		data.getParser().delete(groups);
 	}
 	/**
 	 * Metoda wykonujaca ominiecie kolejki danego gracza
