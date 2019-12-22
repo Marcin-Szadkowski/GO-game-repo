@@ -116,8 +116,6 @@ public void otherPlayerLeft() {
 
 
 
-
-
 /**
  * Metoda informuj¹ca o bierz¹cym ruchu 
  * @param s
@@ -173,8 +171,15 @@ public static void inicialize() {
      
     // gameFrame = new GameFrame();
   
-    // introFrame.openingFrame();
-
+    //introFrame.openingFrame();
+    
+     parser.sendSize(19);
+     parser.sendType("SINGLE");
+	 parser.findGame();  
+      	 
+      	 
+        
+     System.out.println("Mamy ustawienie upcji");
      
    //  introFrame.setVisible(false);
      

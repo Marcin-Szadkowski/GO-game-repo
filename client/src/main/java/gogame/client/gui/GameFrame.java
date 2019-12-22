@@ -111,6 +111,7 @@ public class GameFrame extends JFrame {
          public void actionPerformed(ActionEvent e) {
         	
         	  parser.makePass();
+        	 // labelTurn.setText("OPPONENT TURN");
     
          		}
         });

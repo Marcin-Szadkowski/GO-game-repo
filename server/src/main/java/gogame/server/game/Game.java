@@ -8,7 +8,7 @@ public class Game {
 	public Stone[][] table;
 	public int whitePrisoners =0; //zbite biale kamienie
 	public int blackPrisoners =0; //zbite czarne kamienie
-	private Stone lastBeat;
+	public Stone lastBeat;
 	private Playable playerBlack, playerWhite;
 	private Playable currentPlayer;
 	private int pass = 0; //Kiedy zmienna osiagnie wartosc 2 to gra sie konczy
@@ -50,7 +50,6 @@ public class Game {
 					//Jezeli grupa jest zywa, to ok, sprawdz czy mamy bicie	
 					if(GameMethods.areDead(GameMethods.findGroups(stone, size, table), size, table) == true) {
 						//To wykonaj bicie
-						System.out.println("Wykonuje bicie");
 						 stonesToBeat = GameMethods.beatStones(GameMethods.findGroups(stone, size, table), this);
 						 if(stonesToBeat.size() == 1)
 							 lastBeat = stonesToBeat.get(0);
@@ -63,7 +62,6 @@ public class Game {
 					if(GameMethods.areDead(GameMethods.findGroups(stone, size, table), size, table) == true) {
 						//To ruch jest ok. Wykonaj bicie martwej grupy jesli to nie jest KO
 						if(lastBeat == null || lastBeat.x != x || lastBeat.y != y) {
-							System.out.println("Ruch nie jest samobojczy bo wykonuje bicie i to nie KO");
 							stonesToBeat = GameMethods.beatStones(GameMethods.findGroups(stone, size, table), this);
 							if(stonesToBeat.size() == 1)
 								lastBeat = stonesToBeat.get(0);
@@ -86,12 +84,12 @@ public class Game {
 					pass =0;
 				//Wyslij teraz wiadomosci o zmianie stanu gry
 				this.youMoved(player, x, y);
-				if(player == playerBlack) {
-					this.opponentMoved(playerWhite, x, y);
+				if(player == playerBlack) {			
 					currentPlayer = playerWhite;
+					this.opponentMoved(playerWhite, x, y);
 				}else {
-					this.opponentMoved(playerBlack, x, y);
 					currentPlayer = playerBlack;
+					this.opponentMoved(playerBlack, x, y);
 				}
 				//Wyslij info o kamieniach ktore trzeba usunac z planszy
 				if(!stonesToBeat.isEmpty()) {
@@ -184,10 +182,15 @@ public class Game {
 				this.summary();
 			}
 			//Zamien aktualnego gracza
-			if(player == playerBlack)
+			if(player == playerBlack) {
 				currentPlayer = playerWhite;
-			else
-				currentPlayer = playerBlack;			
+				currentPlayer.yourTurn();
+			}				
+			else {
+				currentPlayer = playerBlack;
+				currentPlayer.yourTurn();
+			}
+							
 		}
 	}
 	/**

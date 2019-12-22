@@ -19,4 +19,5 @@ public interface Playable {
 		public void tie(int x);
 		public void quit();
 		public void otherPlayerLeft();
+		public void yourTurn();
 }

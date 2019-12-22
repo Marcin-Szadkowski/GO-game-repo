@@ -69,6 +69,7 @@ public class Player implements Playable {
 	public void move(int x, int y) {
 		game.move(x, y, this);
 	}
+	public void yourTurn() {};
 	/**
 	 * Metoda wysylajaca do Clienta wiadomosc o poprawnie wykonanym ruchu
 	 * @param x
@@ -77,6 +78,7 @@ public class Player implements Playable {
 	public void youMoved(int x, int y) {
 		data.getParser().youMoved(x, y);
 	}
+	
 	public void delete(LinkedList<Stone> stones) {
 		data.getParser().delete(stones);
 	}
