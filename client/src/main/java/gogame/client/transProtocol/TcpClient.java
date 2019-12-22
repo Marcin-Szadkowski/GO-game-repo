@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import gogame.client.connection.DataParser;
 import gogame.client.gui.GameGui;
+import gogame.client.gui.IntroFrame;
 
 
 /**
@@ -111,11 +112,9 @@ public class TcpClient implements TransferProtocol {
 	  
 	    	
 	    if(socket.isConnected()) {
-	    	// parser.receiveConnected();
-		    	
-	    	  System.out.println("connected");
-	    	  GameGui game = new GameGui();
-	    	  game.inicialize();
+	    	
+	    	IntroFrame introFrame = new IntroFrame();
+	    	introFrame.openingFrame();
 		    	  
 		      }
 		

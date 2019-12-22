@@ -30,7 +30,7 @@ public class IntroFrame  extends JFrame{
 	 public void openingFrame() {
 	    	
 	    	
-
+     final GameGui gui = new GameGui();
 		    introFrame = new JFrame();
 		    introFrame.setSize(500,500);
 		    introFrame.setVisible(true);
@@ -109,7 +109,7 @@ public class IntroFrame  extends JFrame{
 	            	   buttonSize9.setEnabled(false);
 	            	   buttonSize13.setEnabled(false);
 	            	   buttonSize19.setEnabled(false);
-	            	  
+	            	   if(gameChosen()==true)gui.readyToStart(size, gameType);
 	            	   System.out.println(size);
 	            	   System.out.println(gameType);
 	             		}

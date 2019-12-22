@@ -129,6 +129,7 @@ public void connected() {
 	//inicialize();
 
 }
+
 /**
  * Metoda która po ukoñczeniu rozgrywki przekazuje ostateczne punkty dopanelu gry
  * @param yPoints
@@ -153,7 +154,8 @@ public void gameEnded(String type,String yPoints,String oPoints) {
 public void readyToStart(int x,String type) {
 	size=x;
 	gameType=type;
-	System.out.println(x +" "+type);
+	System.out.println("jestem readyToStart to moje dane :  "+x +" "+type);
+	inicialize();
 	
 }
 
@@ -163,58 +165,19 @@ public void readyToStart(int x,String type) {
  */
 public static void inicialize() {
 	
-	  boolean status = false;
-	     
-      DataParser parser = new DataParser();
+     //tworze obiekt  parser by wys³ac infromacjê do server które zainicjalizuj¹ grê 
+     DataParser parser = new DataParser();
      gameFrame = new GameFrame();
-     introFrame = new IntroFrame();
-     
-    // gameFrame = new GameFrame();
-  
-    //introFrame.openingFrame();
-    
-     parser.sendSize(19);
-     parser.sendType("SINGLE");
+   
+     //infromacje inicjalizuj¹ce
+     parser.sendSize(size);
+     parser.sendType(gameType);
 	 parser.findGame();  
       	 
-      	 
-        
-     System.out.println("Mamy ustawienie upcji");
-     
-   //  introFrame.setVisible(false);
-     
-     parser.sendSize(19);
-     parser.sendType("MULTI");
-	  parser.findGame();
-	  // pamietac o ustaleniu sie bo karzystam w parser
-	 //  introFrame.setVisible(false);
-	   gameFrame.gameFrame(19);
-	  
-	 
-  /*   
-     while(connect!=true) {}
-    while(chosen!=true) {
-   	  
-   	  chosen=introFrame.gameChosen();
-   	 
-     }
-    System.out.println("Chosen game settings");
-    gameFrame.gameFrame(introFrame.size);
-    introFrame.setVisible(false);
-    
-     
-    // if(gameStartedStatus==true) GameFrame.gameFrame(introFrame.size);
-	
-	  */ 
-	  
-	   //System.out.println(yourColor);
-	
-	   
-      
-      
-      
-      
-      
+	 //na podstawie wyborów tworzê  planszê gry
+	 gameFrame.gameFrame(size);
+   
+  
 	}
 	
 }

@@ -91,6 +91,7 @@ public  class DataParser extends Converters implements SendDataParser,ReceiveDat
 	public void receiveGameStarted(String s) {
 		String[] splitString = splitStringIntoTable(s);
 		game.gameStarted(splitString[1]);
+		
 	
 	
 		
