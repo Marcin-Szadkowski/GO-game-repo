@@ -18,6 +18,7 @@ public interface ReceiveDataParser {
 	public void receiveVictory(String s);
 	public void receivePrisoners(String s);
 	public void receiveDefeat(String s);
+	public void receiveTie(String s);
 	public void receiveConnected();
 
 }

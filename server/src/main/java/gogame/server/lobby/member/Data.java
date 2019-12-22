@@ -10,11 +10,9 @@ public class Data {
 	private Parser parser = null;
 	private Integer gameSize = null;
 	private String gameType = null;
-	protected String state = null; //To mozna zamienic na enum w przyszlosci
 	
 	public Data(Parser parser) {
 		this.parser = parser;
-		this.state = "waiting";
 		Lobby.getInstance().addPlayer(this);
 	}
 	public Parser getParser() {

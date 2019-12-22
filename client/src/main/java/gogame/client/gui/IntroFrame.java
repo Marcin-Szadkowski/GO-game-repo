@@ -67,15 +67,16 @@ public class IntroFrame  extends JFrame{
 	         buttonSize13.addActionListener(new ActionListener() {
 	             
 	             public void actionPerformed(ActionEvent e) {
-	            	
+	            	 
 	            	 size =13;
+	            	
 	             		}
 	            });
 	         buttonSize19.addActionListener(new ActionListener() {
 	             
 	             public void actionPerformed(ActionEvent e) {
 	            	 size =19;
-	            
+	            	
 	             		}
 	            });
 	         buttonGameSingle.addActionListener(new ActionListener() {
@@ -103,7 +104,14 @@ public class IntroFrame  extends JFrame{
 	             
 	             public void actionPerformed(ActionEvent e) {
 	            	   findGame =true;
-	            	 
+	            	   buttonGameMulti.setEnabled(false);
+	            	   buttonGameSingle.setEnabled(false);
+	            	   buttonSize9.setEnabled(false);
+	            	   buttonSize13.setEnabled(false);
+	            	   buttonSize19.setEnabled(false);
+	            	  
+	            	   System.out.println(size);
+	            	   System.out.println(gameType);
 	             		}
 	            });
 	         
@@ -120,6 +128,7 @@ public class IntroFrame  extends JFrame{
 			if((size!=0) && findGame==true && ((singlePlayer==true) || (multiPlayer==true))) {return true;}
 	    return false;
 		}
+	
 		
 	
 }

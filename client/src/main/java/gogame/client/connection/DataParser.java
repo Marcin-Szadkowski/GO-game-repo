@@ -16,11 +16,7 @@ import gogame.client.transProtocol.TransferProtocol;
  */
 public  class DataParser extends Converters implements SendDataParser,ReceiveDataParser {
  
-	
-	
-	
 	GameGui game=new GameGui();
-	
 	TransferProtocol client = (TcpClient)TcpClient.getInstance();
 	Converters convert = new Converters();
 	
@@ -151,7 +147,8 @@ public  class DataParser extends Converters implements SendDataParser,ReceiveDat
 	}
     
 	public void receiveOtherPlayerLeft() {
-		game.quit();
+		game.otherPlayerLeft();
+		System.out.println("DOSTAJE W PARSER OTHER LEFT");
 		
 	}
     /**
@@ -161,12 +158,13 @@ public  class DataParser extends Converters implements SendDataParser,ReceiveDat
      *  przez graczy
      */
 	public void receiveVictory(String string ) {
+		System.out.println(string);
 		String[] output=new String[3];
 		String[] splitString = string.split("\\s+");
 		output[0]=(splitString[1]);
 		output[1]=(splitString[2]);
 		
-		game.gameEnded(output[0], output[1]);
+		game.gameEnded(splitString[0],splitString[1],splitString[2]);
 		client.stop();
 		
 	}
@@ -181,7 +179,7 @@ public  class DataParser extends Converters implements SendDataParser,ReceiveDat
 		output[1]=(splitString[2]);
 		
 		game.getPrisoners(output[0], output[1]);
-		System.out.println("DOSTAJE PRISONERSÓW     ___________________");
+		
 		
 		
 	}
@@ -192,12 +190,13 @@ public  class DataParser extends Converters implements SendDataParser,ReceiveDat
      *  przez graczy
      */
 	public void receiveDefeat(String string) {
-		String[] output=new String[3];
+		System.out.println(string);
+		//String[] output=new String[3];
 		String[] splitString = string.split("\\s+");
-		output[0]=(splitString[1]);
-		output[1]=(splitString[2]);
+		//output[0]=(splitString[1]);
+		//output[1]=(splitString[2]);
 		
-		game.gameEnded(output[0], output[1]);
+		game.gameEnded(splitString[0],splitString[1],splitString[2]);
 		client.stop();
 		
 	}
@@ -243,6 +242,7 @@ public  class DataParser extends Converters implements SendDataParser,ReceiveDat
 	 */
 	public void makeQuit() {
 		client.sendMessage("QUIT");
+		System.out.println("WYSYLAM QUIT DO SERVERA Z PARSERA");
 		
 	}
 	/**
@@ -282,12 +282,18 @@ public  class DataParser extends Converters implements SendDataParser,ReceiveDat
 		
 	}
 	
+    public void receiveTie(String s) {
+		
+		
+	}
+	
 	/**
 	 * Metoda interpretująca dane wysłane od serwera oraz zarządzająca
 	 * wykonywaniem metod w klasie DataParser
 	 * @param response
 	 */
 	public void commandInterpreter(String response) {
+	
 		
 		 if(response.startsWith("GAME_STARTED")) {
 	    	   receiveGameStarted(response);
@@ -304,7 +310,7 @@ public  class DataParser extends Converters implements SendDataParser,ReceiveDat
 	    	  
 	    	  
 	      }
-	    
+	      
 	      else if(response.startsWith("NOT_YOUR_TURN")) {
 	    	  
 	    	  receiveNotYourTurn();
@@ -329,8 +335,13 @@ public  class DataParser extends Converters implements SendDataParser,ReceiveDat
 	         receiveDefeat(response);
 	    	
 	      }
-	    		
+	      else if(response.startsWith("TIE")) {
+		         receiveDefeat(response);
+		    	
+		    } 
+		 
 	}
+	
 
 	
 	

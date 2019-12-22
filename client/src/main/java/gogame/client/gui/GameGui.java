@@ -33,7 +33,7 @@ public class GameGui extends JFrame {
      public  volatile static boolean chosen=false;
      public static boolean connect = false;
      public static boolean exit = false;
-     public static int size;
+     public static int size=19;
      public static Color color;
      public static String gameType;
      public static boolean makeMove=false;
@@ -92,10 +92,12 @@ public void gameStarted(String s) {
 	if(s.equals("black")) {
 		yourColor=Color.black;
 		oponentColor=Color.white;
+		gameFrame.labelTurnUpdate("YOUR TURN");
 	}
 	else if(s.equals("white")) {
 		yourColor=Color.white;
 		oponentColor=Color.black;
+		gameFrame.labelTurnUpdate("OPPONENT TURN");
 	}
 }
 
@@ -107,14 +109,14 @@ public void delete(int tab[][]) {
 	
 	gameFrame.pawnPanel.removePawn(tab);
 }
+public void otherPlayerLeft() {
+	GameFrame.otherPlayerLeft();
+	
+}
 
 
-public void quit() {}
 
-/**
- * Metoda uaktualniaj¹ca liczbê Prisoners dla ka¿dego gracza 
- * @param tab
- */
+
 
 /**
  * Metoda informuj¹ca o bierz¹cym ruchu 
@@ -126,18 +128,34 @@ public void yourTurn(String s) {
 
 public void connected() {
 	connect=true;
-	System.out.println("info  zmienia connect w gui");
+	//inicialize();
+
 }
 /**
  * Metoda która po ukoñczeniu rozgrywki przekazuje ostateczne punkty dopanelu gry
  * @param yPoints
  * @param oPoints
  */
-public void gameEnded(String yPoints,String oPoints) {
+public void gameEnded(String type,String yPoints,String oPoints) {
+	
 	gameFrame.labelYourPointsUpdate(yPoints);
 	gameFrame.labelOpponentPointsUpdate(oPoints);
-	GameFrame.showWinner();
+	if(type.contentEquals("VICTORY")) {
+		gameFrame.labelWinnerUpdate("YOU");
+		GameFrame.showWinner();
+	}
+	else if(type.contentEquals("DEFEAT")) {
+		gameFrame.labelWinnerUpdate("OPPONENT");
+		GameFrame.showWinner();
+	}
 	
+	
+	
+}
+public void readyToStart(int x,String type) {
+	size=x;
+	gameType=type;
+	System.out.println(x +" "+type);
 	
 }
 
@@ -148,7 +166,7 @@ public void gameEnded(String yPoints,String oPoints) {
 public static void inicialize() {
 	
 	  boolean status = false;
-     
+	     
       DataParser parser = new DataParser();
      gameFrame = new GameFrame();
      introFrame = new IntroFrame();
@@ -164,8 +182,7 @@ public static void inicialize() {
      parser.sendType("MULTI");
 	  parser.findGame();
 	  // pamietac o ustaleniu sie bo karzystam w parser
-	  size=19;
-	   introFrame.setVisible(false);
+	 //  introFrame.setVisible(false);
 	   gameFrame.gameFrame(19);
 	  
 	 
@@ -180,9 +197,7 @@ public static void inicialize() {
     gameFrame.gameFrame(introFrame.size);
     introFrame.setVisible(false);
     
-     parser.sendSize(introFrame.size);
-     parser.sendType(introFrame.gameType);
-	 parser.findGame();
+     
     // if(gameStartedStatus==true) GameFrame.gameFrame(introFrame.size);
 	
 	  */ 
@@ -190,6 +205,8 @@ public static void inicialize() {
 	   //System.out.println(yourColor);
 	
 	   
+      
+      
       
       
       

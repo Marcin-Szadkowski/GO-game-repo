@@ -111,11 +111,11 @@ public class TcpClient implements TransferProtocol {
 	  
 	    	
 	    if(socket.isConnected()) {
-		    	  parser.receiveConnected();
+	    	// parser.receiveConnected();
 		    	
-		    	  System.out.println("connected");
-		    	  GameGui game = new GameGui();
-		    	  game.inicialize();
+	    	  System.out.println("connected");
+	    	  GameGui game = new GameGui();
+	    	  game.inicialize();
 		    	  
 		      }
 		
