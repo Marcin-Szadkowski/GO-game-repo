@@ -176,6 +176,9 @@ public class GameMethodsTest {
 		table[4][3] = new Stone(4,3,"white");
 		table[3][2] = new Stone(3,2,"white");
 		table[3][3] = new Stone(3,3,"white");
+		table[4][2] = new Stone(4,2, "white");
+		//table[5][2] = new Stone(5, 2, "white");
+		table[6][2] = new Stone(6, 2, "white");
 		
 		List<LinkedList<Stone>> groups = new LinkedList<LinkedList<Stone>>();
 		
@@ -183,16 +186,16 @@ public class GameMethodsTest {
 		
 		assertEquals(2, groups.size());
 		List<Stone> group1 = groups.get(0);
+		assertEquals(3, group1.size());
 		
 		System.out.println(group1.get(0).x + " "+ group1.get(0).y + " " + group1.get(0).color);
 		System.out.println(group1.get(1).x + " "+ group1.get(1).y + " " + group1.get(1).color);
-		
-		assertEquals(2, group1.size());
+	
 		
 		List<Stone> group2 = groups.get(1);
 		System.out.println(" ");
 		
-		assertEquals(3, group2.size());
+		assertEquals(4, group2.size());
 		System.out.println(group2.get(0).x + " "+ group2.get(0).y + " " + group2.get(0).color);
 		System.out.println(group2.get(1).x + " "+ group2.get(1).y + " " + group2.get(1).color);
 		System.out.println(group2.get(2).x + " "+ group2.get(2).y + " " + group2.get(2).color);

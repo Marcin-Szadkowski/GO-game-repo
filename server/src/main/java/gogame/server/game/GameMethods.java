@@ -142,6 +142,8 @@ public class GameMethods {
 			
 			if(X1 < 0 || X1 >= size || Y1 < 0 || Y1>= size)			
 				continue;
+			if(visited[X1][Y1] == true)
+				continue;
 			
 			if(table[X1][Y1] != null && table[X1][Y1].color.equals(color)) {
 				Stone u = table[X1][Y1];
