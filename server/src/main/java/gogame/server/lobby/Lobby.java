@@ -36,11 +36,13 @@ public class Lobby implements GamesHandler {
 	public synchronized void  findGame(Data data) {
 		System.out.println("Wywolano findGame()");
 		//W tym momencie mozna sprawdzic czy gracz szuka MULTI czy SINGLE
-		if(data.getGameType().equals("SINGLE")) {
-			prepareSingle(data);
-			return;
-		}
-		//Jak single to daj mu od razu bota, a jak MULTI to rob to co ponizej
+		if(data.getGameType() != null) {
+			if(data.getGameType().contentEquals("SINGLE")) {
+				//Jak single to daj mu od razu bota, a jak MULTI to rob to co ponizej
+				prepareSingle(data);
+				return;
+			}			
+		}		
 		int gracze = players.size();
 		int indeks = players.indexOf(data);
 		
@@ -105,6 +107,8 @@ public class Lobby implements GamesHandler {
 	 * @param player
 	 */
 	public void prepareSingle(Data data) {
+		if(data.isReady() != true)
+			return;
 		Game game = new Game(data.getGameSize());
 		data.addGame(game);
 		Player player = new Player(game, data, "black");

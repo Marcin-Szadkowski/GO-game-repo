@@ -6,7 +6,10 @@ package gogame.server.transProtocol;
  *
  */
 public interface Input {
+	//Pobierz nastepna linie danych
 	public String nextLine();
+	//Sprawdz czy jest kolejna linia danych
 	public boolean hasNextLine();
+	//Zamknij polczenie
 	public void closeSocket();
 }

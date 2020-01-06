@@ -6,9 +6,9 @@ package gogame.server.game;
  *
  */
 public class Stone {
-	public int x;
-	public int y;
-	String color;
+	public int x; //Wspolrzedna x na planszy
+	public int y; //Wspolrzedna y na planszy
+	String color; //kolor kamienia
 	
 	public Stone(int x, int y, String color) {
 		this.x = x;

@@ -38,18 +38,27 @@ public class TcpServer implements TransferProtocol {
 		}
 		return instance;
 	}
+	private TcpServer() {};
+	/**
+	 * Zatrzymaj dzialanie serwera
+	 */
 	public void stop(){
 		
 		this.execute = false;
+		//Zatrzymaj przyjmowanie nowych zadan
 		pool.shutdown();
 		try {
 			System.out.println("Server closing...");
 			if(listener != null)
-				listener.close();
+				listener.close();//Nie przyjmuj nowych polaczen
 		}catch(IOException e) {
 			e.printStackTrace();		
 		}		
 	}
+	/**
+	 * Metoda sprawdzajaca czy serwer jest wlaczony
+	 * @return
+	 */
 	public boolean isRunning() {
 		if(listener.isBound())
 			return true;

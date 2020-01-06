@@ -1,8 +1,11 @@
 package gogame.server.game;
 
 import java.util.LinkedList;
-import java.util.List;
-
+/**
+ * Klasa reprezentujaca gre
+ * @author marcin
+ *
+ */
 public class Game {
 	public int size;
 	public Stone[][] table;
@@ -79,7 +82,7 @@ public class Game {
 						return;
 					}
 				}
-				//Wykonano porpawnie ruch, wiec mozna zmiejszyc wartosc pass
+				//Wykonano poprawnie ruch, wiec mozna zmiejszyc wartosc pass
 				if(pass == 1)
 					pass =0;
 				//Wyslij teraz wiadomosci o zmianie stanu gry
@@ -184,11 +187,11 @@ public class Game {
 			//Zamien aktualnego gracza
 			if(player == playerBlack) {
 				currentPlayer = playerWhite;
-				currentPlayer.yourTurn();
+				currentPlayer.opponentPassed();
 			}				
 			else {
 				currentPlayer = playerBlack;
-				currentPlayer.yourTurn();
+				currentPlayer.opponentPassed();
 			}
 							
 		}

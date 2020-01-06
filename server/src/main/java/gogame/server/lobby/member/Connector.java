@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.Socket;
 
 import gogame.server.transProtocol.ConnectionAdapter;
+import gogame.server.transProtocol.Input;
+import gogame.server.transProtocol.Output;
 import gogame.server.transProtocol.TCP.TcpInput;
 import gogame.server.transProtocol.TCP.TcpOutput;
 /**
@@ -13,8 +15,8 @@ import gogame.server.transProtocol.TCP.TcpOutput;
  */
 public class Connector implements Runnable, ConnectionAdapter {
 	private Socket socket;
-	private TcpOutput output;
-	private TcpInput input;
+	private Output output;
+	private Input input;
 	private Parser parser;
 	
 	//Konstruktor przyjmujacy obiekt klasy Socket

@@ -35,9 +35,11 @@ public class BotMethods {
 	}
 	/**
 	 * Metoda wybierajaca miejsce 
+	 * Sama sprawdza tylko czy nie popelnia KO
+	 * Dalej korzysta z @see {@link BotMethods#isCorrect(Stone, int, Stone[][])}
 	 * @param enemyGroup
 	 * @param game
-	 * @return
+	 * @return wspolrzedne x i y gdzie mozna postawic kamien
 	 */
 	public static int[] choosePlace(LinkedList<Stone> enemyGroup, Game game) {
 		int size = game.size;
@@ -75,7 +77,7 @@ public class BotMethods {
 	 * @param stone
 	 * @param size
 	 * @param table
-	 * @return
+	 * @return true jesli ruch nie jest samobojczy
 	 */
 	public static boolean isCorrect(Stone stone, int size, Stone[][] table) {
 		//Sprawdzam czy grupa jest zywa
@@ -188,7 +190,7 @@ public class BotMethods {
 	 * Metoda sprawdzajaca czy tablica jest pusta
 	 * @param table
 	 * @param size
-	 * @return
+	 * @return true kiedy tablica jest pusta
 	 */
 	public static boolean isEmpty(Stone[][] table, int size) {
 		for(int i=0; i<size; i++) {

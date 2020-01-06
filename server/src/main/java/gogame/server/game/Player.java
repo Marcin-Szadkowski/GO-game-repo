@@ -1,7 +1,6 @@
 package gogame.server.game;
 
 import java.util.LinkedList;
-import java.util.List;
 
 import gogame.server.lobby.member.*;
 
@@ -22,10 +21,15 @@ public class Player implements Playable {
 		this.color = color;
 		this.data = data;
 	}
-
+	/**
+	 * Pobierz instancje gry
+	 */
 	public Game getGame() {
 			return game;
 	}
+	/**
+	 * Pobierz wartosc coloru
+	 */
 	public String getColor() {
 		return color;
 	}
@@ -69,16 +73,15 @@ public class Player implements Playable {
 	public void move(int x, int y) {
 		game.move(x, y, this);
 	}
-	public void yourTurn() {};
 	/**
-	 * Metoda wysylajaca do Clienta wiadomosc o poprawnie wykonanym ruchu
-	 * @param x
-	 * @param y
+	 * Metoda wysylajaca informacje o wykonanym ruchu
 	 */
 	public void youMoved(int x, int y) {
 		data.getParser().youMoved(x, y);
 	}
-	@Override
+	/**
+	 * Metodoa wysylajac do Clienta wiadomosc o zbitych kamieniach
+	 */
 	public void delete(LinkedList<Stone> stones) {
 		data.getParser().delete(stones);
 	}
@@ -105,6 +108,10 @@ public class Player implements Playable {
 	public void defeat(int x, int y) {
 		data.getParser().defeat(x, y);
 	}
+	/**
+	 * Metoda wysylajaca do Clienta wiadomosc o remisie
+	 * wraz z liczba punktow
+	 */
 	public void tie(int x) {
 		data.getParser().tie(x);
 	}
@@ -115,8 +122,17 @@ public class Player implements Playable {
 	public void quit() {
 		game.quit(this);
 	}
+	/**
+	 * Metoda wysylajaca do Clienta wiadomosc o opuszczeniu gry przez przeciwnika
+	 */
 	public void otherPlayerLeft() {
 		data.getParser().otherPlayerLeft();
+	}
+	/**
+	 * Przeciwnik spasowal
+	 */
+	public void opponentPassed() {
+		data.getParser().opponentPassed();
 	}
 
 }

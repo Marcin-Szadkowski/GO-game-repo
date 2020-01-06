@@ -2,6 +2,8 @@ package gogame.server.game;
 
 import static org.junit.Assert.*;
 
+import java.util.LinkedList;
+
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
@@ -171,5 +173,105 @@ public class PlayerTest {
 		player.opponentMoved(9, 10);
 		Mockito.verify(parser).opponentMoved(9, 10);		
 	}
-
+	/**
+	 * Test metody
+	 * @see Player#prisoners(int, int)
+	 */
+	@Test
+	public void prisonersTest() {
+		Parser parser = Mockito.mock(Parser.class);
+		Data data = new Data(parser);
+		Player player = new Player(Mockito.mock(Game.class), data, "black");
+		
+		Mockito.doNothing().when(parser).prisoners(Mockito.anyInt(), Mockito.anyInt());
+		player.prisoners(2, 2);
+		Mockito.verify(parser).prisoners(2, 2);
+	}
+	/**
+	 * Test metody
+	 * @see Player#delete(LinkedList)
+	 */
+	@Test
+	public void deleteTest() {
+		Parser parser = Mockito.mock(Parser.class);
+		Data data = new Data(parser);
+		Player player = new Player(Mockito.mock(Game.class), data, "black");
+		
+		Mockito.doNothing().when(parser).delete(Mockito.any());
+		LinkedList<Stone> stones = new LinkedList<Stone>();
+		player.delete(stones);
+		Mockito.verify(parser).delete(stones);
+	}
+	/**
+	 * Test metody 
+	 * @see Player#victory(int, int)
+	 */
+	@Test
+	public void victoryTest() {
+		Parser parser = Mockito.mock(Parser.class);
+		Data data = new Data(parser);
+		Player player = new Player(Mockito.mock(Game.class), data, "black");
+		
+		Mockito.doNothing().when(parser).victory(Mockito.anyInt(), Mockito.anyInt());
+		player.victory(43, 33);
+		Mockito.verify(parser).victory(43, 33);
+		
+	}
+	/**
+	 * Test metody
+	 * @see Player#defeat(int, int)
+	 */
+	@Test
+	public void defeatTest() {
+		Parser parser = Mockito.mock(Parser.class);
+		Data data = new Data(parser);
+		Player player = new Player(Mockito.mock(Game.class), data, "black");
+		
+		Mockito.doNothing().when(parser).defeat(Mockito.anyInt(), Mockito.anyInt());
+		player.defeat(22, 33);
+		Mockito.verify(parser).defeat(22, 33);
+	}
+	/**
+	 * Test metody
+	 * @see Player#tie(int)
+	 */
+	@Test
+	public void tieTest() {
+		Parser parser = Mockito.mock(Parser.class);
+		Data data = new Data(parser);
+		Player player = new Player(Mockito.mock(Game.class), data, "black");
+		
+		Mockito.doNothing().when(parser).tie(Mockito.anyInt());
+		player.tie(10);
+		Mockito.verify(parser).tie(10);
+	}
+	/**
+	 * Test metody
+	 * @see Player#otherPlayerLeft()
+	 */
+	@Test
+	public void otherPlayerLeftTest() {
+		Parser parser = Mockito.mock(Parser.class);
+		Data data = new Data(parser);
+		Player player = new Player(Mockito.mock(Game.class), data, "black");
+		
+		Mockito.doNothing().when(parser).otherPlayerLeft();
+		player.otherPlayerLeft();
+		Mockito.verify(parser).otherPlayerLeft();
+		
+	}
+	/**
+	 * Test metody
+	 * @see Player#opponentPassed()
+	 */
+	@Test
+	public void opponentPassedTest() {
+		Parser parser = Mockito.mock(Parser.class);
+		Data data = new Data(parser);
+		Player player = new Player(Mockito.mock(Game.class), data, "black");
+		
+		Mockito.doNothing().when(parser).opponentPassed();
+		player.opponentPassed();
+		Mockito.verify(parser).opponentPassed();
+	}
 }

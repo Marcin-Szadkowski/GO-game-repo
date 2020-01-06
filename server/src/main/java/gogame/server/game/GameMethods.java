@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Queue;
 
 /**
- * Klasa zawierajaca metody implementujaca algorytm DFS
+ * Klasa zawierajaca metody implementujace algorytm DFS
  * @author marcin
  *
  */
@@ -66,6 +66,7 @@ public class GameMethods {
 	}
 	/**
 	 * Metoda obslugujaca bicie grup kamieni
+	 * W tej funkcji z planszy od razu sa usuwane bite kamienie
 	 * @param groups
 	 * @param game
 	 * @return listy grup do zbicia
@@ -178,6 +179,7 @@ public class GameMethods {
 	}
 	/**
 	 * Metoda obliczajaca terytorium dla graczy na danej planszy
+	 * Terytorium jest od razu przypisywane do punktow graczy
 	 * @param game
 	 */
 	public static void countTerritory(Game game) {

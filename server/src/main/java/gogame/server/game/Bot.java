@@ -52,9 +52,9 @@ public class Bot implements Playable {
 		if(BotMethods.isEmpty(game.table, game.size)) {
 			game.move(4, 4, this);
 			return;
-		}
-			
+		}			
 		List<LinkedList<Stone>> groups = BotMethods.findGroups(game, "black");
+		//Jesli nie ma wgl grup przeciwnika to znajdz swoja grupe i tam ustaw
 		if(groups.isEmpty()) {
 			groups = BotMethods.findGroups(game, "white");
 		}
@@ -67,7 +67,7 @@ public class Bot implements Playable {
 				move = BotMethods.choosePlace(group, game);
 				if(move == null)
 					continue;
-				game.move(move[0], move[1], this);
+				game.move(move[0], move[1], this);				
 				return;
 			}
 		}
@@ -75,14 +75,19 @@ public class Bot implements Playable {
 			this.pass();
 		
 	}
+	/**
+	 * Przeciwnik spasowal wiec wykonaj ruch
+	 */
+	public void opponentPassed() {
+		move(0,0);
+	}
+	/**
+	 * Wykonaj pass
+	 */
 	public void pass() {
 		game.pass(this);
 		
 	}
-	public void yourTurn() {
-		move(0, 0);
-	}
-
 	public void youMoved(int x, int y) {
 		// TODO Auto-generated method stub
 		
@@ -115,5 +120,4 @@ public class Bot implements Playable {
 	public void gameStarted() {
 		// TODO Auto-generated method stub
 	}
-
 }

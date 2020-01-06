@@ -10,7 +10,9 @@ public interface TransferProtocol extends Runnable {
 	 * Initialize connection 
 	 */
 	public void initialize();
-
+	/**
+	 * Zatrzymaj polaczenie
+	 */
 	public  void stop();
 	
 	public static TransferProtocol getInstance() {

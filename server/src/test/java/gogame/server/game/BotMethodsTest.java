@@ -52,4 +52,24 @@ public class BotMethodsTest {
 		int[] move = BotMethods.choosePlace(weakGroup, game);
 		System.out.println("Tutaj chce polozyc kamien: "+ move[0] + " "+ move[1]);
 	}
+	@Test
+	public void isCorrectTest() {
+		Game game = Mockito.mock(Game.class);
+		game.size = 9;
+		Stone[][] table = new Stone[9][9];
+		game.table = table;
+		
+		table[5][4] = new Stone(5, 4 , "black");
+		table[4][5] = new Stone(4, 5, "black");
+		table[5][6] = new Stone(5,6, "black");
+		table[6][5] = new Stone(6, 5, "black");
+		
+		table[6][4] = new Stone(6,4, "white");
+		table[6][6] = new Stone(6, 6, "white");
+		table[7][5] = new Stone(7, 5, "white");
+		//Tym chcemy zbic grupe czarnego
+		Stone stone = new Stone(5, 5, "white");
+		
+		assertTrue(BotMethods.isCorrect(stone, 9, table));
+	}
 }

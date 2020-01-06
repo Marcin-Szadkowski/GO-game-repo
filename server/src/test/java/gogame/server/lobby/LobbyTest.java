@@ -7,6 +7,7 @@ import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
+import gogame.server.game.Player;
 import gogame.server.lobby.member.Connector;
 import gogame.server.lobby.member.Data;
 import gogame.server.lobby.member.Parser;
@@ -111,6 +112,22 @@ public class LobbyTest extends Lobby{
 		
 		Lobby.getInstance().deletePlayer(data1);
 		Lobby.getInstance().deletePlayer(data2);
+	}
+	@Test
+	public void prepareSingleTest() {
+		Data data = Mockito.mock(Data.class);
+		Lobby.getInstance().addPlayer(data);
+		Parser parser = Mockito.mock(Parser.class);
+		Mockito.doNothing().when(parser).gameStarted(Mockito.any(Player.class));
+		
+		Mockito.when(data.getGameSize()).thenReturn(9);
+		Mockito.when(data.getGameType()).thenReturn("SINGLE");
+		Mockito.when(data.isReady()).thenReturn(true);
+		Mockito.when(data.getParser()).thenReturn(parser);
+		
+		Lobby.getInstance().prepareSingle(data);
+		
+		assertEquals(Integer.valueOf(0), Lobby.getInstance().howManyPlayers());
 	}
 	
 	

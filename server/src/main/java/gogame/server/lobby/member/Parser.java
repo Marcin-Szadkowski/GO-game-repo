@@ -1,12 +1,10 @@
 package gogame.server.lobby.member;
 
 import java.util.LinkedList;
-import java.util.List;
 
 import gogame.server.game.Player;
 import gogame.server.game.Stone;
 import gogame.server.lobby.Lobby;
-import gogame.server.game.Stone;
 
 /**
  * Klasa odpowiadajaca za parsowanie polecen przychodzacych od clienta oraz
@@ -23,7 +21,6 @@ public class Parser {
 		this.connector = connector;
 		this.data = new Data(this);
 	}
-	public Parser() {};
 	
 	public Data getData() {
 		return data;
@@ -148,9 +145,18 @@ public class Parser {
 		if(color != null)
 			connector.sendMsg("GAME_STARTED " + color);																		
 	}
+	/**
+	 * Metoda wysylajaca do gracza informacje o opuszczeniu gry przez przeciwnika
+	 */
 	public void otherPlayerLeft() {
 		connector.sendMsg("OTHER_PLAYER_LEFT");
 		data.game = null;
 		data.player = null;
+	}
+	/**
+	 * Wyslij do gracza info, ze przeciwnika spasowal
+	 */
+	public void opponentPassed() {
+		connector.sendMsg("OPPONENT_PASSED");
 	}
 }
