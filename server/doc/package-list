@@ -1,0 +1,6 @@
+gogame.client.tcp
+gogame.server.game
+gogame.server.lobby
+gogame.server.lobby.member
+gogame.server.transProtocol
+gogame.server.transProtocol.TCP

@@ -18,8 +18,13 @@ public class TcpInput implements Input {
 	 * Metoda zwracajaca wiadomsoc przesylana przez socket
 	 * @return String
 	 */
-	public String in() {
+	public String nextLine() {
 		return input.nextLine();		
+	}
+	public boolean hasNextLine() {
+		if(input.hasNextLine())
+			return true;
+		return false;
 	}
 	public TcpInput(Socket socket) {
 		this.socket = socket;
@@ -29,8 +34,13 @@ public class TcpInput implements Input {
 			e.printStackTrace();
 		}
 	}
+	public void closeSocket() {
+		try {
+			this.socket.close();
+		}catch(IOException e) {}
+	}
 	/**
-	 * Metoda ustawiajaca wejscie stumienia danych 
+	 * Metoda ustawiajaca wejscie strumienia danych 
 	 * @throws IOException
 	 */
 	private void set() throws IOException {
