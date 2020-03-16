@@ -1,13 +1,21 @@
 package gogame.server.game;
 
 import java.util.LinkedList;
+
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+
+import gogame.server.dataBase.ManageGame;
+import gogame.server.dataBase.ManageStone;
 /**
  * Klasa reprezentujaca gre
  * @author marcin
  *
  */
 public class Game {
+	@Access(AccessType.FIELD)
 	public int size;
+	private Integer id; //ID gry
 	public Stone[][] table;
 	public int whitePrisoners =0; //zbite biale kamienie
 	public int blackPrisoners =0; //zbite czarne kamienie
@@ -19,6 +27,7 @@ public class Game {
 	public Game(int size) {
 		this.size = size;
 		table = new Stone[size][size];
+		id = ManageGame.addGame(this);
 	}
 	/**
 	 * Metoda przypisujaca graczy do powstalej gry
@@ -87,10 +96,14 @@ public class Game {
 					pass =0;
 				//Wyslij teraz wiadomosci o zmianie stanu gry
 				this.youMoved(player, x, y);
-				if(player == playerBlack) {			
+				if(player == playerBlack) {
+					stone.setId(ManageStone.addStone(x, y, stone.color, this.id));
+					ManageGame.updateGame(this, this.id);
 					currentPlayer = playerWhite;
 					this.opponentMoved(playerWhite, x, y);
 				}else {
+					stone.setId(ManageStone.addStone(x, y, stone.color, this.id));
+					ManageGame.updateGame(this, this.id);
 					currentPlayer = playerBlack;
 					this.opponentMoved(playerBlack, x, y);
 				}
@@ -206,5 +219,32 @@ public class Game {
 			playerWhite.otherPlayerLeft();
 		else
 			playerBlack.otherPlayerLeft();
-	}	
+	}
+
+	public Game() {}
+	public int getSize() {
+		return size;
+	}
+	public void setSize(int size) {
+		this.size = size;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public int getWhitePrisoners() {
+		return whitePrisoners;
+	}
+	public void setWhitePrisoners(int whitePrisoners) {
+		this.whitePrisoners = whitePrisoners;
+	}
+	public int getBlackPrisoners() {
+		return blackPrisoners;
+	}
+	public void setBlackPrisoners(int blackPrisoners) {
+		this.blackPrisoners = blackPrisoners;
+	};
+	
 }

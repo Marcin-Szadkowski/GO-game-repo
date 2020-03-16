@@ -10,11 +10,9 @@
       <property name = "hibernate.connection.driver_class">
          com.mysql.jdbc.Driver
       </property>
-      
-      <!-- Assume test is the database name -->
-      
+          
       <property name = "hibernate.connection.url">
-         jdbc:mysql://localhost/test
+         jdbc:mysql://localhost/game
       </property>
       
       <property name = "hibernate.connection.username">
@@ -26,7 +24,8 @@
       </property>
       
       <!-- List of XML mapping files -->
-      <mapping resource = "Employee.hbm.xml"/>
+      <mapping resource = "Game.hbm.xml"/>
+      <mapping resource = "Stone.hbm.xml"/>
       
    </session-factory>
 </hibernate-configuration>>

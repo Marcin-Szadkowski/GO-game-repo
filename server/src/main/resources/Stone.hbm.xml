@@ -4,16 +4,19 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
 
 <hibernate-mapping>
-   <class name = "gogame.server.game.Stone table = "stones">
+   <class name = "gogame.server.game.Stone" table = "Stones">
       
       <meta attribute = "class-description">
-         This class contains the employee detail. 
+         This class contains the stone details. 
       </meta>
-     
+     <id name = "id" type ="int" column = "id">
+     	<generator class="native"/>
+     </id>
       
       <property name = "x" column = "x" type = "int"/>
-      <property name = "y" column = "y" type = "int"/>
-      <property name = "salary" column = "salary" type = "string"/>
+      <property name = "y" column = "y"  type = "int"/>
+      <property name = "color" column = "color"  type = "string"/>
+      <property name = "gameId" column = "game_id" type = "int"/>
       
    </class>
 </hibernate-mapping>
